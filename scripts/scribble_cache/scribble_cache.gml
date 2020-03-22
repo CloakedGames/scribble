@@ -106,7 +106,6 @@ _scribble_array[@ __SCRIBBLE.HEIGHT            ] = 0;
 _scribble_array[@ __SCRIBBLE.CHARACTERS        ] = 0;
 _scribble_array[@ __SCRIBBLE.LINES             ] = 0;
 _scribble_array[@ __SCRIBBLE.PAGES             ] = 0;
-_scribble_array[@ __SCRIBBLE.GLOBAL_INDEX      ] = global.__scribble_global_count+1;
                                                
 _scribble_array[@ __SCRIBBLE.__SECTION2        ] = "-- State --";
 _scribble_array[@ __SCRIBBLE.ANIMATION_TIME    ] = 0;
@@ -134,9 +133,6 @@ _scribble_array[@ __SCRIBBLE.TW_SOUND_MAX_PITCH] =  1.0;
         
         
 #region Register the text element in a cache group
-        
-global.__scribble_global_count++;
-global.scribble_alive[? global.__scribble_global_count] = _scribble_array;
         
 if (__SCRIBBLE_DEBUG) show_debug_message("Scribble: Caching \"" + _cache_string + "\"");
         

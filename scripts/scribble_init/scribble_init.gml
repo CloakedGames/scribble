@@ -2,10 +2,9 @@
 /// This script should be called before any other Scribble script.
 /// 
 /// 
-/// @param fontDirectory    The directory to look in (relative to game_save_id) for font .yy files.
-/// @param defaultFont      The name of the default Scribble font to use, as a string.
-/// @param autoScan         Whether or not to automatically find normal font .yy files in the font directory.
-///                         N.B. This only works for normal fonts, and on desktop platforms.
+/// @param defaultFont       The name of the default Scribble font to use, as a string.
+/// @param [fontDirectory]   The directory to look in (relative to game_save_id) for font .yy files.
+/// @param [autoscan]        Whether or not to automatically find normal font .yy files in the font directory. N.B. This only works for normal fonts
 /// 
 /// 
 /// This script achieves the following things:
@@ -176,30 +175,29 @@ enum __SCRIBBLE
     CHARACTERS,             //12
     LINES,                  //13
     PAGES,                  //14
-    GLOBAL_INDEX,           //15
     
-    __SECTION2,             //16
-    ANIMATION_TIME,         //17
-    TIME,                   //18
-    FREED,                  //19
-    SOUND_FINISH_TIME,      //20
+    __SECTION2,             //15
+    ANIMATION_TIME,         //16
+    TIME,                   //17
+    FREED,                  //18
+    SOUND_FINISH_TIME,      //19
     
-    __SECTION3,             //21
-    PAGES_ARRAY,            //22
+    __SECTION3,             //20
+    PAGES_ARRAY,            //21
     
-    __SECTION4,             //23
-    TW_PAGE,                //24
-    TW_FADE_IN,             //25
-    TW_SPEED,               //26
-    TW_POSITION,            //27
-    TW_METHOD,              //28
-    TW_SMOOTHNESS,          //29
-    TW_SOUND_ARRAY,         //30
-    TW_SOUND_OVERLAP,       //31
-	TW_SOUND_MIN_PITCH,     //32
-	TW_SOUND_MAX_PITCH,     //33
+    __SECTION4,             //22
+    TW_PAGE,                //23
+    TW_FADE_IN,             //24
+    TW_SPEED,               //25
+    TW_POSITION,            //26
+    TW_METHOD,              //27
+    TW_SMOOTHNESS,          //28
+    TW_SOUND_ARRAY,         //29
+    TW_SOUND_OVERLAP,       //30
+	TW_SOUND_MIN_PITCH,     //31
+	TW_SOUND_MAX_PITCH,     //32
     
-    __SIZE                  //34
+    __SIZE                  //33
 }
 
 #macro __SCRIBBLE_ON_DIRECTX           ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
@@ -229,9 +227,9 @@ if ( variable_global_exists("__scribble_global_count") )
 
 show_debug_message("Scribble: Welcome to Scribble by @jujuadams! This is version " + __SCRIBBLE_VERSION + ", " + __SCRIBBLE_DATE);
 
-var _font_directory = argument0;
-var _default_font   = argument1;
-var _autoscan       = argument2;
+var _default_font   = argument[0];
+var _font_directory = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : "";
+var _autoscan       = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : false;
 
 if (__SCRIBBLE_ON_MOBILE)
 {
@@ -294,8 +292,6 @@ global.__scribble_colors               = ds_map_create();  //Stores color defini
 global.__scribble_effects              = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_effects_slash        = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_typewriter_events    = ds_map_create();
-global.scribble_alive                  = ds_map_create();  //ds_map of all alive text elements
-global.__scribble_global_count         = 0;
 global.__scribble_default_font         = _default_font;
 global.__scribble_global_cache_map     = ds_map_create();
 global.__scribble_global_cache_list    = ds_list_create();
