@@ -543,6 +543,14 @@
             }
         },
         {
+            "Key": "af351a91-b500-4885-8108-50d26b8cae5d",
+            "Value": {
+                "id": "7db89e88-200b-4c6e-b9a1-319e739fee54",
+                "resourcePath": "views\\af351a91-b500-4885-8108-50d26b8cae5d.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
             "Key": "b1d302c2-0fa0-4efb-8e77-0aa33c500be6",
             "Value": {
                 "id": "c82b71e2-a66c-43a9-a7c4-597472cf21f2",
@@ -682,7 +690,7 @@
             "Key": "df9b1d94-c949-4fe3-9f0f-cc35539a9de0",
             "Value": {
                 "id": "7617bff6-2914-44cb-8214-1540c656a6e0",
-                "resourcePath": "scripts\\scribble_shader_property_set\\scribble_shader_property_set.yy",
+                "resourcePath": "scripts\\scribble_state_shader_set\\scribble_state_shader_set.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -706,7 +714,7 @@
             "Key": "e502386f-f2fc-42f8-b4e8-e3ba19a6afde",
             "Value": {
                 "id": "4bd73967-5f9b-4973-9ed7-b5cdc8a6fc09",
-                "resourcePath": "scripts\\scribble_shader_property_get\\scribble_shader_property_get.yy",
+                "resourcePath": "scripts\\scribble_state_shader_get\\scribble_state_shader_get.yy",
                 "resourceType": "GMScript"
             }
         },
