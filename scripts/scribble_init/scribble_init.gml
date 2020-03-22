@@ -306,10 +306,10 @@ global.__scribble_sprite_whitelist_map = ds_map_create();
 ds_map_add_list(global.__scribble_cache_group_map, SCRIBBLE_DEFAULT_CACHE_GROUP, global.__scribble_global_cache_list);
 
 //Set up default shader properties
-global.__scribble_animation_property_map   = ds_map_create();
-global.__scribble_animation_property_array = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, undefined);
-global.__scribble_animation_value_array    = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, 0);
-global.__scribble_animation_default_array  = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, 0);
+global.__scribble_shader_property_map           = ds_map_create();
+global.__scribble_shader_property_array         = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, undefined);
+global.__scribble_shader_property_value_array   = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, 0);
+global.__scribble_shader_property_default_array = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, 0);
 scribble_shader_add_property("wave_size"       ,  0,  4   );
 scribble_shader_add_property("wave_frequency"  ,  1, 50   );
 scribble_shader_add_property("wave_speed"      ,  2,  0.2 );

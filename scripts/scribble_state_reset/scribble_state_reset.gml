@@ -1,15 +1,15 @@
 /// Resets Scribble's draw state to use pass-through values, inheriting defaults set in __scribble_config().
 
-global.__scribble_state_xscale          = SCRIBBLE_DEFAULT_XSCALE;
-global.__scribble_state_yscale          = SCRIBBLE_DEFAULT_YSCALE;
-global.__scribble_state_angle           = SCRIBBLE_DEFAULT_ANGLE;
-global.__scribble_state_color           = SCRIBBLE_DEFAULT_BLEND_COLOR;
-global.__scribble_state_alpha           = SCRIBBLE_DEFAULT_BLEND_ALPHA;
-global.__scribble_state_line_min_height = SCRIBBLE_DEFAULT_LINE_MIN_HEIGHT;
-global.__scribble_state_max_width       = SCRIBBLE_DEFAULT_MAX_WIDTH;
-global.__scribble_state_max_height      = SCRIBBLE_DEFAULT_MAX_HEIGHT;
-global.__scribble_state_character_wrap  = false;
-global.__scribble_state_box_halign      = SCRIBBLE_DEFAULT_BOX_HALIGN;
-global.__scribble_state_box_valign      = SCRIBBLE_DEFAULT_BOX_VALIGN;
+scribble_state_xscale          = 1.0;
+scribble_state_yscale          = 1.0;
+scribble_state_angle           = 0.0;
+scribble_state_color           = c_white;
+scribble_state_alpha           = 1.0;
+scribble_state_line_min_height = -1;
+scribble_state_max_width       = -1;
+scribble_state_max_height      = -1;
+scribble_state_character_wrap  = false;
+scribble_state_box_halign      = fa_left;
+scribble_state_box_valign      = fa_top;
 
-array_copy(global.__scribble_animation_value_array, 0, global.__scribble_animation_default_array, 0, SCRIBBLE_SHADER_MAX_PROPERTIES);
+array_copy(global.__scribble_shader_property_value_array, 0, global.__scribble_shader_property_default_array, 0, SCRIBBLE_SHADER_MAX_PROPERTIES);

@@ -13,32 +13,10 @@
 
 
 
-#region Default parameters
-
 //Starting format
 #macro SCRIBBLE_DEFAULT_TEXT_COLOR    c_white  //The default (vertex) color of text
 #macro SCRIBBLE_DEFAULT_HALIGN        fa_left
 #macro SCRIBBLE_DEFAULT_SPRITE_SPEED  0.1      //The default animation speed for sprites inserted into text
-
-//Box alignment
-#macro SCRIBBLE_DEFAULT_BOX_HALIGN  fa_left    //The default alignment of the textbox. fa_left places the left-hand side of the box at the draw coordinate when using scribble_draw()
-#macro SCRIBBLE_DEFAULT_BOX_VALIGN  fa_top     //The default alignment of the textbox. fa_top places the top of the box at the draw coordinate when using scribble_draw()
-
-//Text wrapping
-#macro SCRIBBLE_DEFAULT_LINE_MIN_HEIGHT  -1    //The default minimum height of each line of text. Set to a negative value to use the height of a space character of the default font
-#macro SCRIBBLE_DEFAULT_MAX_WIDTH        -1    //The default maximum horizontal size of the textbox. Set to a negative value for no limit
-#macro SCRIBBLE_DEFAULT_MAX_HEIGHT       -1    //The default maximum vertical size of the textbox. Set to a negative value for no limit
-
-//Transform
-#macro SCRIBBLE_DEFAULT_XSCALE  1              //The default x-scale of the textbox
-#macro SCRIBBLE_DEFAULT_YSCALE  1              //The default y-scale of the textbox
-#macro SCRIBBLE_DEFAULT_ANGLE   0              //The default rotation of the textbox
-
-//Color blending
-#macro SCRIBBLE_DEFAULT_BLEND_COLOR  c_white  //The default blend color
-#macro SCRIBBLE_DEFAULT_BLEND_ALPHA   1.0      //The default alpha
-
-#endregion
 
 
 
@@ -62,8 +40,8 @@
 #macro SCRIBBLE_SEQUENTIAL_GLYPH_MAX_HOLES  0.50 //Fraction (0 -> 1). If the number of holes exceeds this proportion, a font's glyphs will be indexed using a ds_map
 
 //These constants must match the corresponding values in shader shd_scribble
-#macro SCRIBBLE_MAX_EFFECTS      6     //The maximum number of unique effects. Effects are set as booleans, and are sent into shd_scribble as a bitpacked number
-#macro SCRIBBLE_SHADER_MAX_PROPERTIES  11     //The maximum number of shader properties
-#macro SCRIBBLE_MAX_LINES        1000  //Maximum number of lines in a textbox
+#macro SCRIBBLE_SHADER_MAX_EFFECTS        6  //The maximum number of unique effects. Effects are set as booleans, and are sent into shd_scribble as a bitpacked number
+#macro SCRIBBLE_SHADER_MAX_PROPERTIES    11  //The maximum number of shader properties
+#macro SCRIBBLE_MAX_LINES              1000  //Maximum number of lines in a textbox
 
 #endregion

@@ -10,7 +10,7 @@
         "e502386f-f2fc-42f8-b4e8-e3ba19a6afde"
     ],
     "filterType": "GMScript",
-    "folderName": "State",
+    "folderName": "Draw State",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

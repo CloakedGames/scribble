@@ -33,7 +33,7 @@ if (!is_real( _default)
     show_error("Scribble:\n<defaultValue> argument is the wrong datatype (" + typeof(_default) + "), expected a number\n ", false);
 }
 
-global.__scribble_animation_property_map[?    _name] = _index;
-global.__scribble_animation_property_array[@ _index] = _name;
-global.__scribble_animation_value_array[@    _index] = _default;
-global.__scribble_animation_default_array[@  _index] = _default;
+global.__scribble_shader_property_map[?             _name] = _index;
+global.__scribble_shader_property_array[@          _index] = _name;
+global.__scribble_shader_property_value_array[@    _index] = _default;
+global.__scribble_shader_property_default_array[@  _index] = _default;

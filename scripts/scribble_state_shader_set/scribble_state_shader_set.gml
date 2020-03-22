@@ -18,12 +18,12 @@ var _name     = argument[0];
 var _value    = argument[1];
 var _relative = (argument_count > 2)? argument[2] : false;
 
-var _index = global.__scribble_animation_property_map[? _name];
+var _index = global.__scribble_shader_property_map[? _name];
 if (_index == undefined)
 {
     show_error("Scribble:\nProperty \"" + string(_name) + "\" not recognised\n ", false);
     exit;
 }
 
-if (_relative) _value += global.__scribble_animation_value_array[_index];
-global.__scribble_animation_value_array[@ _index] = _value;
+if (_relative) _value += global.__scribble_shader_property_value_array[_index];
+global.__scribble_shader_property_value_array[@ _index] = _value;
