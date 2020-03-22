@@ -66,14 +66,14 @@ var _element_pages_array = _scribble_array[__SCRIBBLE.PAGES_ARRAY];
 var _page_array = _element_pages_array[_scribble_array[__SCRIBBLE.TW_PAGE]];
 
 //Figure out the left/top offset
-switch(global.__scribble_state_box_halign)
+switch(scribble_state_box_halign)
 {
     case fa_center: var _left = -_scribble_array[__SCRIBBLE.WIDTH] div 2; break;
     case fa_right:  var _left = -_scribble_array[__SCRIBBLE.WIDTH];       break;
     default:        var _left = 0;                                        break;
 }
 
-switch(global.__scribble_state_box_valign)
+switch(scribble_state_box_valign)
 {
     case fa_middle: var _top = -_scribble_array[__SCRIBBLE.HEIGHT] div 2; break;
     case fa_bottom: var _top = -_scribble_array[__SCRIBBLE.HEIGHT];       break;
@@ -91,9 +91,9 @@ if (_increment_timers)
 }
 
 //Build a matrix to transform the text...
-if ((global.__scribble_state_xscale == 1.0)
-&&  (global.__scribble_state_yscale == 1.0)
-&&  (global.__scribble_state_angle  == 0.0))
+if ((scribble_state_xscale == 1.0)
+&&  (scribble_state_yscale == 1.0)
+&&  (scribble_state_angle  == 0.0))
 {
     var _matrix = matrix_build(_left + _draw_x, _top + _draw_y, 0,   0,0,0,   1,1,1);
 }
@@ -101,8 +101,8 @@ else
 {
     var _matrix = matrix_build(_left, _top, 0,   0,0,0,   1,1,1);
         _matrix = matrix_multiply(_matrix, matrix_build(_draw_x, _draw_y, 0,
-                                                        0, 0, global.__scribble_state_angle,
-                                                        global.__scribble_state_xscale, global.__scribble_state_yscale, 1));
+                                                        0, 0, scribble_state_angle,
+                                                        scribble_state_xscale, scribble_state_yscale, 1));
 }
 
 //...aaaand set the matrix
@@ -260,10 +260,10 @@ if (_count > 0)
     shader_set_uniform_f(global.__scribble_uniform_tw_smoothness, _typewriter_smoothness);
     shader_set_uniform_f(global.__scribble_uniform_tw_t         , _typewriter_t);
     
-    shader_set_uniform_f(global.__scribble_uniform_color_blend  , color_get_red(  global.__scribble_state_color)/255,
-                                                                  color_get_green(global.__scribble_state_color)/255,
-                                                                  color_get_blue( global.__scribble_state_color)/255,
-                                                                  global.__scribble_state_alpha);
+    shader_set_uniform_f(global.__scribble_uniform_color_blend  , color_get_red(  scribble_state_color)/255,
+                                                                  color_get_green(scribble_state_color)/255,
+                                                                  color_get_blue( scribble_state_color)/255,
+                                                                  scribble_state_alpha);
     
     shader_set_uniform_f_array(global.__scribble_uniform_properties, global.__scribble_shader_property_value_array);
     

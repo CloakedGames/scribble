@@ -9,7 +9,7 @@ var _freeze       = ((argument_count > 2) && (argument[2] != undefined))? argume
 
 
 //Check the cache
-var _cache_string = string(_draw_string) + ":" + string(_cache_group) + ":" + string(global.__scribble_state_line_min_height) + ":" + string(global.__scribble_state_max_width) + ":" + string(global.__scribble_state_max_height);
+var _cache_string = string(_draw_string) + ":" + string(_cache_group) + ":" + string(scribble_state_line_min_height) + ":" + string(scribble_state_max_width) + ":" + string(scribble_state_max_height);
 if (ds_map_exists(global.__scribble_global_cache_map, _cache_string))
 {
     //Grab the text element from the cache
@@ -29,9 +29,9 @@ var _texture_to_buffer_map = ds_map_create();
         
 #region Process input parameters
     
-var _max_width       = global.__scribble_state_max_width;
-var _max_height      = global.__scribble_state_max_height;
-var _line_min_height = global.__scribble_state_line_min_height;
+var _max_width       = scribble_state_max_width;
+var _max_height      = scribble_state_max_height;
+var _line_min_height = scribble_state_line_min_height;
 var _def_colour      = SCRIBBLE_DEFAULT_TEXT_COLOR;
 var _def_font        = global.__scribble_default_font;
 var _def_halign      = SCRIBBLE_DEFAULT_HALIGN;
@@ -845,7 +845,7 @@ repeat(_buffer_size)
             
         //Update CHAR_START_TELL, and WORD_START_TELL if needed
         _vbuff_data[@ __SCRIBBLE_VERTEX_BUFFER.CHAR_START_TELL] = buffer_tell(_glyph_buffer);
-        if (global.__scribble_state_character_wrap)
+        if (scribble_state_character_wrap)
         {
             _vbuff_data[@ __SCRIBBLE_VERTEX_BUFFER.WORD_START_TELL] = buffer_tell(_glyph_buffer);
             _line_width = max(_line_width, _text_x);
