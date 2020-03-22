@@ -2,11 +2,10 @@
 /// 
 /// 
 /// Returns: A Scribble text element (which is really a complex array)
-/// @param x         The x position in the room to draw at.
-/// @param y         The y position in the room to draw at.
-/// @param content   The text to be drawn. See below for formatting help.
-///                  Alternatively, you can pass a text element into this argument from a previous call to scribble_draw() e.g. for pre-caching.
-/// @param [reader]  
+/// @param x                   The x position in the room to draw at.
+/// @param y                   The y position in the room to draw at.
+/// @param string(orElement)   The text to be drawn. See below for formatting help.
+///                            Alternatively, you can pass a text element into this argument from a previous call to scribble_draw() e.g. for pre-caching.
 /// 
 /// 
 /// Formatting commands:
@@ -34,10 +33,10 @@
 /// [wobble]  [/wobble]                 Set/unset text to wobble by rotating back and forth
 /// [pulse]   [/pulse]                  Set/unset text to shrink and grow rhythmically
 
-var _draw_x      = argument[0];
-var _draw_y      = argument[1];
-var _draw_string = argument[2];
-var _reader      = (argument_count > 3)? argument[3] : undefined;
+var _draw_x      = argument0;
+var _draw_y      = argument1;
+var _draw_string = argument2;
+
 
 
 if (!is_array(_draw_string))
