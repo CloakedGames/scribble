@@ -7,7 +7,7 @@
 var _name   = argument0;
 var _script = argument1;
 
-if (!variable_global_exists("__scribble_global_count"))
+if (!variable_global_exists("__scribble_default_font"))
 {
     show_error("Scribble:\nscribble_add_event() should be called after initialising Scribble.\n ", false);
     exit;

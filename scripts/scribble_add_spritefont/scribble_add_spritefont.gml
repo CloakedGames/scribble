@@ -8,7 +8,7 @@
 /// Scribble's spritefonts emulate GameMaker's native behaviour. Spritefonts otherwise behave indentically to normal fonts within Scribble.
 /// All Scribble spritefonts are proportional as per GameMaker's font_add_sprite_ext() function.
 
-if (!variable_global_exists("__scribble_global_count"))
+if (!variable_global_exists("__scribble_default_font"))
 {
     show_error("Scribble:\nscribble_add_spritefont() should be called after scribble_init()\n ", true);
     exit;

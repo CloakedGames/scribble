@@ -9,7 +9,7 @@
 /// This means every time you modify a font you also need to update the included .yy file
 /// (Including .yy files isn't necessary for spritefonts)
 
-if (!variable_global_exists("__scribble_global_count"))
+if (!variable_global_exists("__scribble_default_font"))
 {
     show_error("Scribble:\nscribble_add_font() should be called after scribble_init()\n ", true);
     return undefined;
