@@ -719,6 +719,14 @@
             }
         },
         {
+            "Key": "eeb70650-9ac2-4e41-98e4-57a3f1487945",
+            "Value": {
+                "id": "23e9d93b-119c-4c27-9fef-f40acf1065f1",
+                "resourcePath": "scripts\\scribble_whitelist_sprite\\scribble_whitelist_sprite.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "f418569b-3bdd-4706-a0e4-364317f54032",
             "Value": {
                 "id": "f0cb9727-2298-4848-9f10-5fabdd8d25b9",
@@ -794,6 +802,7 @@
         "c1f9a882-5c95-4baa-9aa2-288643547505",
         "853cc3dc-bb29-429c-b828-a68514d4f06e",
         "00322d5b-d6eb-4d4e-b389-bb26da697b1d",
+        "eeb70650-9ac2-4e41-98e4-57a3f1487945",
         "7f249531-321e-43d7-92bc-258842287e9d",
         "16333f16-885e-4b0b-98e8-9726a0f9c0b0",
         "acb5d2b0-8c3c-42de-b368-9e1978761cce"
