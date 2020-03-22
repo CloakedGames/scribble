@@ -5,7 +5,7 @@ scribble_init("Fonts", "fnt_test_0", true);
 var _mapstring = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-;:_+-*/\\'\"!?~^°<>|(){[]}%&=#@$ÄÖÜäöüß";
 scribble_add_spritefont("spr_sprite_font", _mapstring, 0, 3);
 
-//Add some colour definitions
+//Add some color definitions
 scribble_add_color("c_coquelicot", $ff3800);
 scribble_add_color("c_smaragdine", $50c875);
 scribble_add_color("c_xanadu"    , $738678);
@@ -27,8 +27,7 @@ var _demo_string  = "[sound,snd_crank][rainbow][pulse]abcdef[] ABCDEF##";
 
 //Now parse the string to make some Scribble data
 //We're using a cache group called "example cache group" to indicate we want to manage this memory ourselves
-scribble_draw_set_cache_group("example cache group", false, false);
-element = scribble_draw(0, 0, _demo_string);
+element = scribble_cache(_demo_string, "example cache group");
 
 //Don't forget to reset the state otherwise all subsequent Scribble text elements will inherit these settings
 scribble_draw_reset();

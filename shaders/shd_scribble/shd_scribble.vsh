@@ -31,13 +31,13 @@ const float MAX_LINES = 1000.0; //Change SCRIBBLE_MAX_LINES in __scribble_config
 
 attribute vec3 in_Position;     //{Centre X, Centre Y, Packed character & line index}
 attribute vec3 in_Normal;       //{Delta X, Delta Y, Bitpacked effect flags}
-attribute vec4 in_Colour;       //Colour. This attribute is used for sprite data if this character is a sprite
+attribute vec4 in_Colour;       //Color. This attribute is used for sprite data if this character is a sprite
 attribute vec2 in_TextureCoord; //UVs
 
 varying vec2 v_vTexcoord;
-varying vec4 v_vColour;
+varying vec4 v_vColor;
 
-uniform vec4  u_vColourBlend;
+uniform vec4  u_vColorBlend;
 uniform float u_fTime;
 uniform float u_fZ;
 
@@ -132,21 +132,21 @@ vec2 shake(vec2 position, float characterIndex, float magnitude, float speed)
 }
 
 //Use RGBA 
-vec4 handleSprites(float isSprite, vec4 colour)
+vec4 handleSprites(float isSprite, vec4 color)
 {
     if (isSprite == 1.0)
     {
-        float myImage    = colour.r*255.0;       //First byte is the index of this sprite
-        float imageMax   = 1.0 + colour.g*255.0; //Second byte is the maximum number of images in the sprite
-        float imageSpeed = colour.b;             //Third byte is half of the image speed
-        float imageStart = colour.a*255.0;       //Fourth byte is the image offset
+        float myImage    = color.r*255.0;       //First byte is the index of this sprite
+        float imageMax   = 1.0 + color.g*255.0; //Second byte is the maximum number of images in the sprite
+        float imageSpeed = color.b;             //Third byte is half of the image speed
+        float imageStart = color.a*255.0;       //Fourth byte is the image offset
         
         float displayImage = floor(mod(imageSpeed*u_fTime + imageStart, imageMax));
         return vec4((abs(myImage-displayImage) < 1.0/255.0)? 1.0 : 0.0);
     }
     else
     {
-        return colour;
+        return color;
     }
 }
 
@@ -158,10 +158,10 @@ vec3 hsv2rgb(vec3 c)
     return c.z * mix(K.xxx, clamp(P - K.xxx, 0.0, 1.0), c.y);
 }
 
-//Colour cycling for the rainbow effect
-vec4 rainbow(float characterIndex, float weight, float speed, vec4 colour)
+//Color cycling for the rainbow effect
+vec4 rainbow(float characterIndex, float weight, float speed, vec4 color)
 {
-    return vec4(mix(colour.rgb, hsv2rgb(vec3(characterIndex + speed*u_fTime, 1.0, 1.0)), weight), colour.a);
+    return vec4(mix(color.rgb, hsv2rgb(vec3(characterIndex + speed*u_fTime, 1.0, 1.0)), weight), color.a);
 }
 
 //Fade effect for typewriter etc.
@@ -228,17 +228,17 @@ void main()
     pos.xy = wave(  pos.xy, characterIndex, waveFlag*waveAmplitude, waveFrequency, waveSpeed); //Apply the wave effect
     pos.xy = shake( pos.xy, characterIndex, shakeFlag*shakeAmplitude, shakeSpeed); //Apply the shake effect
     
-    //Colour
-    v_vColour  = handleSprites(spriteFlag, in_Colour); //Use RGBA information to filter out sprites
-    v_vColour  = rainbow(characterIndex, rainbowFlag*rainbowWeight, rainbowSpeed, v_vColour); //Cycle colours for the rainbow effect
-    v_vColour *= u_vColourBlend; //And then blend with the blend colour/alpha
+    //Color
+    v_vColor  = handleSprites(spriteFlag, in_Colour); //Use RGBA information to filter out sprites
+    v_vColor  = rainbow(characterIndex, rainbowFlag*rainbowWeight, rainbowSpeed, v_vColor); //Cycle colors for the rainbow effect
+    v_vColor *= u_vColorBlend; //And then blend with the blend color/alpha
     
     //Apply fade (if we're given a method)
     if (u_fTypewriterMethod != 0.0)
     {
         //Choose our limit based on what method's being used: if the method value == 1.0 then we're using character indexes, otherwise we use line indexes
         float limit = (abs(u_fTypewriterMethod) == 1.0)? characterIndex : lineIndex;
-        v_vColour.a *= fade(u_fTypewriterT, u_fTypewriterSmoothness, limit);
+        v_vColor.a *= fade(u_fTypewriterT, u_fTypewriterSmoothness, limit);
     }
     
     //Texture

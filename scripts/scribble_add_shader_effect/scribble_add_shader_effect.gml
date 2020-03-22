@@ -24,9 +24,9 @@ if (!is_real(_index) || (_index != floor(_index)) || (_index < 1) || (_index > (
     exit;
 }
 
-if (ds_map_exists(global.__scribble_colours, _name))
+if (ds_map_exists(global.__scribble_colors, _name))
 {
-    show_debug_message("Scribble: WARNING! Effect name \"" + _name + "\" has already been defined as a colour");
+    show_debug_message("Scribble: WARNING! Effect name \"" + _name + "\" has already been defined as a color");
     exit;
 }
 

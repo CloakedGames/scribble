@@ -11,11 +11,11 @@
 /// This script achieves the following things:
 /// 1) Define the default font directory to pull font .yy files from
 /// 2) Create global text elements to store data and state
-/// 3) Define custom colours analogues for GM's native colour constants
+/// 3) Define custom colors analogues for GM's native color constants
 /// 4) Define names for default effects - wave, shake, rainbow
 /// 5) Creates a vertex format
 /// 6) Cache uniform indexes for the shd_scribble shader
-/// 7) Build a lookup table for decoding hexcode colours in scribble_draw()
+/// 7) Build a lookup table for decoding hexcode colors in scribble_draw()
 /// 8) Automatically scans Included Files for fonts (if enabled)
 /// 
 /// 
@@ -31,6 +31,19 @@
 #macro __SCRIBBLE_VERSION  "5.4.4"
 #macro __SCRIBBLE_DATE     "2020-03-22"
 #macro __SCRIBBLE_DEBUG    false
+
+#macro scribble_state_xscale              global.__scribble_state_xscale
+#macro scribble_state_yscale              global.__scribble_state_yscale
+#macro scribble_state_angle               global.__scribble_state_angle
+#macro scribble_state_color               global.__scribble_state_color
+#macro scribble_state_alpha               global.__scribble_state_alpha
+#macro scribble_state_line_min_height     global.__scribble_state_line_min_height
+#macro scribble_state_max_width           global.__scribble_state_max_width
+#macro scribble_state_max_height          global.__scribble_state_max_height
+#macro scribble_state_character_wrap      global.__scribble_state_character_wrap
+#macro scribble_state_box_halign          global.__scribble_state_box_halign
+#macro scribble_state_box_valign          global.__scribble_state_box_valign
+#macro scribble_state_fallback_character  global.__scribble_state_fallback_character
 
 //You'll usually only want to modify SCRIBBLE_GLYPH.X_OFFSET, SCRIBBLE_GLYPH.Y_OFFSET, and SCRIBBLE_GLYPH.SEPARATION
 enum SCRIBBLE_GLYPH
@@ -118,7 +131,7 @@ enum __SCRIBBLE_VERTEX
     DELTA_X        = 12,
     DELTA_Y        = 16,
     EFFECT_FLAGS   = 20,
-    COLOUR         = 24,
+    COLOR          = 24,
     U              = 28,
     V              = 32,
     __SIZE         = 36
@@ -126,13 +139,13 @@ enum __SCRIBBLE_VERTEX
 
 enum SCRIBBLE_STATE
 {
-    START_COLOUR,
+    START_COLOR,
     START_FONT,
     START_HALIGN,
     XSCALE,
     YSCALE,
     ANGLE,
-    COLOUR,
+    COLOR,
     ALPHA,
     LINE_MIN_HEIGHT,
     MAX_WIDTH,
@@ -140,14 +153,7 @@ enum SCRIBBLE_STATE
     CHARACTER_WRAP,
     HALIGN,
     VALIGN,
-    AUTOTYPE_FADE_IN,
-    AUTOTYPE_POSITION,
-    AUTOTYPE_SMOOTHNESS,
-    AUTOTYPE_METHOD,
     ANIMATION_ARRAY,
-    CACHE_GROUP,
-    ALLOW_DRAW,
-    FREEZE,
     __SIZE
 }
 
@@ -158,7 +164,7 @@ enum __SCRIBBLE
     STRING,                 // 2
     CACHE_STRING,           // 3
     DEFAULT_FONT,           // 3
-    DEFAULT_COLOUR,         // 4
+    DEFAULT_COLOR,          // 4
     DEFAULT_HALIGN,         // 5
     WIDTH_LIMIT,            // 6
     HEIGHT_LIMIT,           // 7
@@ -210,8 +216,6 @@ enum __SCRIBBLE
 #macro SCRIBBLE_FADE_NONE               SCRIBBLE_AUTOTYPE_NONE
 #macro SCRIBBLE_FADE_PER_CHARACTER      SCRIBBLE_AUTOTYPE_PER_CHARACTER
 #macro SCRIBBLE_FADE_PER_LINE           SCRIBBLE_AUTOTYPE_PER_LINE
-
-#macro scribble_add_colour  scribble_add_color
 
 #endregion
 
@@ -284,7 +288,7 @@ else if ((asset_get_type(_default_font) != asset_font) && (asset_get_type(_defau
 global.__scribble_lcg               = date_current_datetime()*100;
 global.__scribble_font_directory    = _font_directory;
 global.__scribble_font_data         = ds_map_create();  //Stores a data array for each font defined inside Scribble
-global.__scribble_colours           = ds_map_create();  //Stores colour definitions, including custom colours
+global.__scribble_colors            = ds_map_create();  //Stores color definitions, including custom colors
 global.__scribble_effects           = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_effects_slash     = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_autotype_events   = ds_map_create();
@@ -299,32 +303,32 @@ ds_map_add_list(global.__scribble_cache_group_map, SCRIBBLE_DEFAULT_CACHE_GROUP,
 
 //Declare state variables
 global.__scribble_default_anim_array = [4, 50, 0.2,   4, 0.4,   0.5, 0.01,   40, 0.15,   0.4, 0.1];
-global.scribble_state_anim_array = array_create(SCRIBBLE_MAX_DATA_FIELDS);
+global.__scribble_state_anim_array = array_create(SCRIBBLE_MAX_DATA_FIELDS);
 scribble_draw_reset();
 
-//Duplicate GM's native colour constants in string form for access in scribble_draw()
-global.__scribble_colours[? "c_aqua"   ] = c_aqua;
-global.__scribble_colours[? "c_black"  ] = c_black;
-global.__scribble_colours[? "c_blue"   ] = c_blue;
-global.__scribble_colours[? "c_dkgray" ] = c_dkgray;
-global.__scribble_colours[? "c_dkgrey" ] = c_dkgray;
-global.__scribble_colours[? "c_fuchsia"] = c_fuchsia;
-global.__scribble_colours[? "c_gray"   ] = c_gray;
-global.__scribble_colours[? "c_green"  ] = c_green;
-global.__scribble_colours[? "c_grey"   ] = c_gray;
-global.__scribble_colours[? "c_lime"   ] = c_lime;
-global.__scribble_colours[? "c_ltgray" ] = c_ltgray;
-global.__scribble_colours[? "c_ltgrey" ] = c_ltgray;
-global.__scribble_colours[? "c_maroon" ] = c_maroon;
-global.__scribble_colours[? "c_navy"   ] = c_navy;
-global.__scribble_colours[? "c_olive"  ] = c_olive;
-global.__scribble_colours[? "c_orange" ] = c_orange;
-global.__scribble_colours[? "c_purple" ] = c_purple;
-global.__scribble_colours[? "c_red"    ] = c_red;
-global.__scribble_colours[? "c_silver" ] = c_silver;
-global.__scribble_colours[? "c_teal"   ] = c_teal;
-global.__scribble_colours[? "c_white"  ] = c_white;
-global.__scribble_colours[? "c_yellow" ] = c_yellow;
+//Duplicate GM's native color constants in string form for access in scribble_draw()
+global.__scribble_colors[? "c_aqua"   ] = c_aqua;
+global.__scribble_colors[? "c_black"  ] = c_black;
+global.__scribble_colors[? "c_blue"   ] = c_blue;
+global.__scribble_colors[? "c_dkgray" ] = c_dkgray;
+global.__scribble_colors[? "c_dkgrey" ] = c_dkgray;
+global.__scribble_colors[? "c_fuchsia"] = c_fuchsia;
+global.__scribble_colors[? "c_gray"   ] = c_gray;
+global.__scribble_colors[? "c_green"  ] = c_green;
+global.__scribble_colors[? "c_grey"   ] = c_gray;
+global.__scribble_colors[? "c_lime"   ] = c_lime;
+global.__scribble_colors[? "c_ltgray" ] = c_ltgray;
+global.__scribble_colors[? "c_ltgrey" ] = c_ltgray;
+global.__scribble_colors[? "c_maroon" ] = c_maroon;
+global.__scribble_colors[? "c_navy"   ] = c_navy;
+global.__scribble_colors[? "c_olive"  ] = c_olive;
+global.__scribble_colors[? "c_orange" ] = c_orange;
+global.__scribble_colors[? "c_purple" ] = c_purple;
+global.__scribble_colors[? "c_red"    ] = c_red;
+global.__scribble_colors[? "c_silver" ] = c_silver;
+global.__scribble_colors[? "c_teal"   ] = c_teal;
+global.__scribble_colors[? "c_white"  ] = c_white;
+global.__scribble_colors[? "c_yellow" ] = c_yellow;
 
 //Add bindings for default effect names
 //Effect index 0 is reversed for sprites
@@ -343,13 +347,13 @@ global.__scribble_effects_slash[? "/pulse"  ] = 5;
 vertex_format_begin();
 vertex_format_add_position_3d(); //12 bytes
 vertex_format_add_normal();      //12 bytes       //X = character index, Y = line index, Z = effect flags
-vertex_format_add_colour();      // 4 bytes
+vertex_format_add_color();      // 4 bytes
 vertex_format_add_texcoord();    // 8 bytes
 global.__scribble_vertex_format = vertex_format_end(); //36 bytes per vertex, 108 bytes per tri, 216 bytes per glyph
 
 //Cache uniform indexes
 global.__scribble_uniform_time          = shader_get_uniform(shd_scribble, "u_fTime"                );
-global.__scribble_uniform_colour_blend  = shader_get_uniform(shd_scribble, "u_vColourBlend"         );
+global.__scribble_uniform_color_blend   = shader_get_uniform(shd_scribble, "u_vColorBlend"         );
 global.__scribble_uniform_tw_method     = shader_get_uniform(shd_scribble, "u_fTypewriterMethod"    );
 global.__scribble_uniform_tw_smoothness = shader_get_uniform(shd_scribble, "u_fTypewriterSmoothness");
 global.__scribble_uniform_tw_t          = shader_get_uniform(shd_scribble, "u_fTypewriterT"         );

@@ -6,7 +6,7 @@
 /// @param shakeSize        The maximum pixel offset of the [shake] effect.
 /// @param shakeSpeed       The speed of the [shake] effect. Increase to make shaking faster.
 /// @param rainbowWeight    The blend weight of the [rainbow] effect. A value of 0 will not apply the effect, a value of 1 will blend with 100% weighting.
-/// @param rainbowSpeed     Cycling speed of the [rainbow] effect. Increase to make colour scrolling faster.
+/// @param rainbowSpeed     Cycling speed of the [rainbow] effect. Increase to make color scrolling faster.
 /// @param wobbleAngle      
 /// @param wobbleFrequency  
 /// @param pulseScale
@@ -25,7 +25,7 @@ if (_count > SCRIBBLE_MAX_DATA_FIELDS)
 var _i = 0;
 repeat(_count)
 {
-    if (argument[_i] != undefined) global.scribble_state_anim_array[@ _i] = argument[_i];
+    if (argument[_i] != undefined) global.__scribble_state_anim_array[@ _i] = argument[_i];
     ++_i;
 }
 

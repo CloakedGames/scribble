@@ -5,7 +5,7 @@ scribble_init("Fonts", "fnt_test_0", true);
 var _mapstring = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-;:_+-*/\\'\"!?~^°<>|(){[]}%&=#@$ÄÖÜäöüß";
 scribble_add_spritefont("spr_sprite_font", _mapstring, 0, 3);
 
-//Add some colour definitions that we'll use in the demo string
+//Add some color definitions that we'll use in the demo string
 scribble_add_color("c_coquelicot", $ff3800);
 scribble_add_color("c_smaragdine", $50c875);
 scribble_add_color("c_xanadu"    , $738678);
