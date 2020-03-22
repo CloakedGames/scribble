@@ -9,10 +9,6 @@
 
 
 
-#macro SCRIBBLE_WARNING_AUTOSCAN_YY_NOT_FOUND  true
-
-
-
 //Starting format
 #macro SCRIBBLE_DEFAULT_TEXT_COLOR    c_white  //The default (vertex) color of text
 #macro SCRIBBLE_DEFAULT_HALIGN        fa_left
@@ -45,3 +41,7 @@
 #macro SCRIBBLE_MAX_LINES              1000  //Maximum number of lines in a textbox
 
 #endregion
+
+
+
+#macro SCRIBBLE_WARNING_AUTOSCAN_YY_NOT_FOUND  true
