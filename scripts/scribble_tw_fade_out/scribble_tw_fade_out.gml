@@ -1,12 +1,12 @@
 /// @param textElement
-/// @param method
 /// @param speed
 /// @param smoothness
+/// @param perLine
 
 var _scribble_array = argument0;
-var _method         = argument1;
-var _speed          = argument2;
-var _smoothness     = argument3;
+var _speed          = argument1;
+var _smoothness     = argument2;
+var _per_line       = argument3;
 
 //Check if this array is a relevant text element
 if (!is_array(_scribble_array)
@@ -19,17 +19,9 @@ if (!is_array(_scribble_array)
 
 if (_scribble_array[__SCRIBBLE.FREED]) exit;
 
-if ((_method != SCRIBBLE_TW_NONE)
-&&  (_method != SCRIBBLE_TW_PER_CHARACTER)
-&&  (_method != SCRIBBLE_TW_PER_LINE))
-{
-    show_error("Scribble:\nMethod not recognised.\nPlease use SCRIBBLE_TW_NONE, SCRIBBLE_TW_PER_CHARACTER, or SCRIBBLE_TW_PER_LINE.\n ", false);
-    _method = SCRIBBLE_TW_NONE;
-}
-
 //Update the remaining typewriter state values
 _scribble_array[@ __SCRIBBLE.TW_POSITION  ] = 0;
-_scribble_array[@ __SCRIBBLE.TW_METHOD    ] = _method;
+_scribble_array[@ __SCRIBBLE.TW_METHOD    ] = _per_line? SCRIBBLE_TW_PER_LINE : SCRIBBLE_TW_PER_CHARACTER;
 _scribble_array[@ __SCRIBBLE.TW_SPEED     ] = _speed;
 _scribble_array[@ __SCRIBBLE.TW_SMOOTHNESS] = _smoothness;
 _scribble_array[@ __SCRIBBLE.TW_FADE_IN   ] = false;
