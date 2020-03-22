@@ -160,7 +160,8 @@ if (_count > 0)
                     {
                         global.__scribble_lcg = (48271*global.__scribble_lcg) mod 2147483647; //Lehmer
                         var _sound = _sound_array[floor(array_length_1d(_sound_array) * global.__scribble_lcg / 2147483648)];
-                        audio_play_sound(_sound, 0, false);
+                        var _inst = audio_play_sound(_sound, 0, false);
+                        audio_sound_pitch(_inst, random_range(_scribble_array[__SCRIBBLE.TW_SOUND_MIN_PITCH], _scribble_array[__SCRIBBLE.TW_SOUND_MAX_PITCH]));
                         _scribble_array[@ __SCRIBBLE.SOUND_FINISH_TIME] = current_time + 1000*audio_sound_length(_sound) - _scribble_array[__SCRIBBLE.TW_SOUND_OVERLAP];
                     }
                 }

@@ -24,4 +24,4 @@ var _demo_string  = "[rainbow][pulse]abcdef[] ABCDEF[test event]##";
 
 element = scribble_cache(_demo_string);
 scribble_tw_fade_in(element, SCRIBBLE_TW_PER_CHARACTER, 0.5, 0);
-scribble_tw_set_sound(element, [snd_vowel_0, snd_vowel_1, snd_vowel_2, snd_vowel_3, snd_vowel_4], 30);
+scribble_tw_set_sound(element, [snd_vowel_0, snd_vowel_1, snd_vowel_2, snd_vowel_3, snd_vowel_4], 30, 1.0, 1.1);

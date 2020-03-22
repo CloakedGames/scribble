@@ -188,16 +188,18 @@ enum __SCRIBBLE
     PAGES_ARRAY,            //22
     
     __SECTION4,             //23
-    TW_PAGE,          //24
-    TW_FADE_IN,       //25
-    TW_SPEED,         //26
-    TW_POSITION,      //27
-    TW_METHOD,        //28
-    TW_SMOOTHNESS,    //29
-    TW_SOUND_ARRAY,   //30
-    TW_SOUND_OVERLAP, //31
+    TW_PAGE,                //24
+    TW_FADE_IN,             //25
+    TW_SPEED,               //26
+    TW_POSITION,            //27
+    TW_METHOD,              //28
+    TW_SMOOTHNESS,          //29
+    TW_SOUND_ARRAY,         //30
+    TW_SOUND_OVERLAP,       //31
+	TW_SOUND_MIN_PITCH,     //32
+	TW_SOUND_MAX_PITCH,     //33
     
-    __SIZE                  //32
+    __SIZE                  //34
 }
 
 #macro __SCRIBBLE_ON_DIRECTX           ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
