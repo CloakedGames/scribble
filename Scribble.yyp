@@ -87,6 +87,14 @@
             }
         },
         {
+            "Key": "0dd07d6f-79d9-492e-b1d7-08cf56740f87",
+            "Value": {
+                "id": "f4cae519-f1e4-48fa-8846-62cb3016b42c",
+                "resourcePath": "scripts\\scribble_add_font_outline\\scribble_add_font_outline.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "16333f16-885e-4b0b-98e8-9726a0f9c0b0",
             "Value": {
                 "id": "81a8eb01-5d70-40a0-9a17-20b2193afe01",
@@ -798,6 +806,7 @@
         "375e7330-6e30-4902-8a42-dbc8ad380c16",
         "78e35bbe-fd42-485e-9818-8c5f23d7c5b9",
         "d934110d-0067-4412-8563-3af79a256c25",
+        "0dd07d6f-79d9-492e-b1d7-08cf56740f87",
         "0a93a84f-87c9-4473-adf8-f92fd1d1e19f",
         "85e0350a-70e4-4ed9-b9fc-f01ceb507eb2",
         "bf269b8e-eb65-4528-b05e-d89efb7d6c87",

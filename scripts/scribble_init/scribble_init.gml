@@ -362,9 +362,15 @@ global.__scribble_effects_slash[? "/pulse"  ] = 5;
 vertex_format_begin();
 vertex_format_add_position_3d(); //12 bytes
 vertex_format_add_normal();      //12 bytes       //X = character index, Y = line index, Z = effect flags
-vertex_format_add_color();      // 4 bytes
+vertex_format_add_color();       // 4 bytes
 vertex_format_add_texcoord();    // 8 bytes
 global.__scribble_vertex_format = vertex_format_end(); //36 bytes per vertex, 108 bytes per tri, 216 bytes per glyph
+
+vertex_format_begin();
+vertex_format_add_position(); //12 bytes
+vertex_format_add_color();    // 4 bytes
+vertex_format_add_texcoord(); // 8 bytes
+global.__scribble_passthrough_vertex_format = vertex_format_end();
 
 //Cache uniform indexes
 global.__scribble_uniform_time          = shader_get_uniform(shd_scribble, "u_fTime"                );
