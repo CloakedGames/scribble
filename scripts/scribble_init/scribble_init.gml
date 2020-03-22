@@ -180,24 +180,44 @@ enum __SCRIBBLE
     ANIMATION_TIME,         //16
     TIME,                   //17
     FREED,                  //18
-    SOUND_FINISH_TIME,      //19
+    SOUND_FINISH_TIME,      //19  --
     
     __SECTION3,             //20
     PAGES_ARRAY,            //21
     
-    __SECTION4,             //22
-    TW_PAGE,                //23
-    TW_FADE_IN,             //24
-    TW_SPEED,               //25
-    TW_POSITION,            //26
-    TW_METHOD,              //27
-    TW_SMOOTHNESS,          //28
-    TW_SOUND_ARRAY,         //29
-    TW_SOUND_OVERLAP,       //30
-	TW_SOUND_MIN_PITCH,     //31
-	TW_SOUND_MAX_PITCH,     //32
+    __SECTION4,             //22  --
+    TW_PAGE,                //23  --
+    TW_FADE_IN,             //24  --
+    TW_SPEED,               //25  --
+    TW_POSITION,            //26  --
+    TW_METHOD,              //27  --
+    TW_SMOOTHNESS,          //28  --
+    TW_SOUND_ARRAY,         //29  --
+    TW_SOUND_OVERLAP,       //30  --
+	TW_SOUND_MIN_PITCH,     //31  --
+	TW_SOUND_MAX_PITCH,     //32  --
     
     __SIZE                  //33
+}
+
+enum __SCRIBBLE_READER
+{
+    NAME,             // 0
+    
+    PAGE,             // 1
+    
+    FADE_IN,          // 2
+    SPEED,            // 3
+    POSITION,         // 4
+    METHOD,           // 5
+    SMOOTHNESS,       // 6
+    SOUND_ARRAY,      // 7
+    SOUND_OVERLAP,    // 8
+	SOUND_MIN_PITCH,  // 9
+	SOUND_MAX_PITCH,  //10
+    SOUND_FINISH_TIME, //11
+    
+    __SIZE            //12
 }
 
 #macro __SCRIBBLE_ON_DIRECTX           ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
@@ -292,6 +312,7 @@ global.__scribble_colors               = ds_map_create();  //Stores color defini
 global.__scribble_effects              = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_effects_slash        = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_typewriter_events    = ds_map_create();
+global.__scribble_reader_map           = ds_map_create();
 global.__scribble_default_font         = _default_font;
 global.__scribble_global_cache_map     = ds_map_create();
 global.__scribble_global_cache_list    = ds_list_create();
