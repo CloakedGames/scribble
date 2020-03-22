@@ -860,14 +860,33 @@ repeat(_buffer_size)
         if (_font_glyphs_array == undefined)
         {
             var _glyph_array = _font_glyphs_map[? _character_code];
+	        if (_glyph_array == undefined) _glyph_array = _font_glyphs_map[? ord(scribble_state_fallback_character)];
         }
         else
         {
-            if ((_character_code < _font_glyphs_min) || (_character_code > _font_glyphs_max)) continue;
-            var _glyph_array = _font_glyphs_array[_character_code - _font_glyphs_min];
+	        if ((_character_code < _font_glyphs_min) || (_character_code > _font_glyphs_max))
+            {
+                _character_code = ord(scribble_state_fallback_character);
+                if ((_character_code < _font_glyphs_min) || (_character_code > _font_glyphs_max))
+                {
+                    _glyph_array = undefined;
+                }
+                else
+                {
+	                var _glyph_array = _font_glyphs_array[_character_code - _font_glyphs_min];
+                }
+            }
+            else
+            {
+	            var _glyph_array = _font_glyphs_array[_character_code - _font_glyphs_min];
+            }
         }
             
-        if (_glyph_array != undefined)
+	    if (_glyph_array == undefined)
+	    {
+	        if (SCRIBBLE_VERBOSE) show_debug_message("Scribble: scribble_cache() couldn't find glyph data for character code " + string(_character_code) + " (" + chr(_character_code) + ") in font \"" + string(_text_font) + "\"");
+        }
+        else
         {
             var _quad_l = _text_x + _glyph_array[SCRIBBLE_GLYPH.X_OFFSET]*_text_scale;
             var _quad_t =           _glyph_array[SCRIBBLE_GLYPH.Y_OFFSET]*_text_scale - ((_font_line_height*_text_scale) div 2);
@@ -901,10 +920,6 @@ repeat(_buffer_size)
             ++_meta_page_characters;
             ++_meta_element_characters;
             _char_width = _glyph_array[SCRIBBLE_GLYPH.SEPARATION]*_text_scale;
-        }
-        else
-        {
-            if (SCRIBBLE_VERBOSE) show_debug_message("Scribble: scribble_draw() couldn't find glyph data for character code " + string(_character_code) + " (" + chr(_character_code) + ") in font \"" + string(_text_font) + "\"");
         }
         
         #endregion
@@ -1287,6 +1302,6 @@ ds_list_destroy(_parameters_list);
         
         
         
-if (SCRIBBLE_VERBOSE) show_debug_message("Scribble: scribble_draw() create took " + string((get_timer() - _timer_total)/1000) + "ms");
+if (SCRIBBLE_VERBOSE) show_debug_message("Scribble: scribble_cache() create took " + string((get_timer() - _timer_total)/1000) + "ms");
         
 return _scribble_array;
