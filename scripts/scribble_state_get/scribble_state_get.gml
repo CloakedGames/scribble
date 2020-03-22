@@ -13,5 +13,5 @@ _array[@ SCRIBBLE_STATE.MAX_HEIGHT     ] = global.__scribble_state_max_height;
 _array[@ SCRIBBLE_STATE.CHARACTER_WRAP ] = global.__scribble_state_character_wrap;
 _array[@ SCRIBBLE_STATE.HALIGN         ] = global.__scribble_state_box_halign;
 _array[@ SCRIBBLE_STATE.VALIGN         ] = global.__scribble_state_box_valign;
-_array[@ SCRIBBLE_STATE.ANIMATION_ARRAY] = global.__scribble_state_anim_array;
+_array[@ SCRIBBLE_STATE.ANIMATION_ARRAY] = global.__scribble_animation_value_array;
 return _array;

@@ -7,4 +7,4 @@ var _bbox = scribble_get_bbox(element,   x, y,   5, 5,   5, 5);
 draw_rectangle(_bbox[SCRIBBLE_BBOX.L], _bbox[SCRIBBLE_BBOX.T],
                _bbox[SCRIBBLE_BBOX.R], _bbox[SCRIBBLE_BBOX.B], true);
 
-scribble_draw_reset();
+scribble_state_reset();

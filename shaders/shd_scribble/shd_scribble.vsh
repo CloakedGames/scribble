@@ -7,7 +7,7 @@ const int MAX_EFFECTS = 6;
 //4 = wobble
 //5 = pulse
 
-const int MAX_DATA_FIELDS = 11;
+const int MAX_PROPERTIES = 11;
 //By default, the data fields are:
 // 0 = wave amplitude
 // 1 = wave frequency
@@ -45,7 +45,7 @@ uniform float u_fTypewriterMethod;
 uniform float u_fTypewriterSmoothness;
 uniform float u_fTypewriterT;
 
-uniform float u_aDataFields[MAX_DATA_FIELDS];
+uniform float u_aProperties[MAX_PROPERTIES];
 //uniform vec2 u_vTexel; //Used in the fragment shader
 
 
@@ -197,17 +197,17 @@ void main()
     
     //Unpack data fields into variables
     //This isn't strictly necessary but it makes the shader easier to read
-    float waveAmplitude   = u_aDataFields[ 0];
-    float waveFrequency   = u_aDataFields[ 1];
-    float waveSpeed       = u_aDataFields[ 2];
-    float shakeAmplitude  = u_aDataFields[ 3];
-    float shakeSpeed      = u_aDataFields[ 4];
-    float rainbowWeight   = u_aDataFields[ 5];
-    float rainbowSpeed    = u_aDataFields[ 6];
-    float wobbleAngle     = u_aDataFields[ 7];
-    float wobbleFrequency = u_aDataFields[ 8];
-    float pulseScale      = u_aDataFields[ 9];
-    float pulseSpeed      = u_aDataFields[10];
+    float waveAmplitude   = u_aProperties[ 0];
+    float waveFrequency   = u_aProperties[ 1];
+    float waveSpeed       = u_aProperties[ 2];
+    float shakeAmplitude  = u_aProperties[ 3];
+    float shakeSpeed      = u_aProperties[ 4];
+    float rainbowWeight   = u_aProperties[ 5];
+    float rainbowSpeed    = u_aProperties[ 6];
+    float wobbleAngle     = u_aProperties[ 7];
+    float wobbleFrequency = u_aProperties[ 8];
+    float pulseScale      = u_aProperties[ 9];
+    float pulseSpeed      = u_aProperties[10];
     
     //Unpack the effect flag bits into an array, then into variables for readability
     float flagArray[MAX_EFFECTS]; unpackFlags(in_Normal.z, flagArray);

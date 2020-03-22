@@ -63,7 +63,7 @@
 
 //These constants must match the corresponding values in shader shd_scribble
 #macro SCRIBBLE_MAX_EFFECTS      6     //The maximum number of unique effects. Effects are set as booleans, and are sent into shd_scribble as a bitpacked number
-#macro SCRIBBLE_MAX_DATA_FIELDS  11    //The maximum number of data fields. "Data fields" are misc
+#macro SCRIBBLE_SHADER_MAX_PROPERTIES  11     //The maximum number of shader properties
 #macro SCRIBBLE_MAX_LINES        1000  //Maximum number of lines in a textbox
 
 #endregion

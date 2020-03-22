@@ -7,7 +7,7 @@ scribble_draw(x, y, element);
 //Find the size and position of the bounding box (plus a bit) and draw it
 var _bbox = scribble_get_bbox(element,   x, y,   5, 5,   5, 5);
 
-scribble_draw_reset();
+scribble_state_reset();
 
 //scribble_get_bbox() return 4 coordinate pairs, one for each corner of the box
 //This means you can rotate the textbox and still get useful coordinates

@@ -1,8 +1,8 @@
 {
-    "id": "00322d5b-d6eb-4d4e-b389-bb26da697b1d",
+    "id": "88f27f62-071a-4441-b908-675e356b8173",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "scribble_add_shader_effect",
+    "name": "scribble_state_set",
     "IsCompatibility": false,
     "IsDnD": false
 }

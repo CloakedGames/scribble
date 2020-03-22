@@ -305,10 +305,25 @@ global.__scribble_sprite_whitelist     = false;
 global.__scribble_sprite_whitelist_map = ds_map_create();
 ds_map_add_list(global.__scribble_cache_group_map, SCRIBBLE_DEFAULT_CACHE_GROUP, global.__scribble_global_cache_list);
 
+//Set up default shader properties
+global.__scribble_animation_property_map   = ds_map_create();
+global.__scribble_animation_property_array = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, undefined);
+global.__scribble_animation_value_array    = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, 0);
+global.__scribble_animation_default_array  = array_create(SCRIBBLE_SHADER_MAX_PROPERTIES, 0);
+scribble_shader_add_property("wave_size"       ,  0,  4   );
+scribble_shader_add_property("wave_frequency"  ,  1, 50   );
+scribble_shader_add_property("wave_speed"      ,  2,  0.2 );
+scribble_shader_add_property("shake_size"      ,  3,  4   );
+scribble_shader_add_property("shake_speed"     ,  4,  0.4 );
+scribble_shader_add_property("rainbow_weight"  ,  5,  0.5 );
+scribble_shader_add_property("rainbow_speed"   ,  6,  0.01);
+scribble_shader_add_property("wobble_angle"    ,  7, 40   );
+scribble_shader_add_property("wobble_frequency",  8,  0.15);
+scribble_shader_add_property("pulse_scale"     ,  9,  0.4 );
+scribble_shader_add_property("pulse_speed"     , 10,  0.1 );
+
 //Declare state variables
-global.__scribble_default_anim_array = [4, 50, 0.2,   4, 0.4,   0.5, 0.01,   40, 0.15,   0.4, 0.1];
-global.__scribble_state_anim_array = array_create(SCRIBBLE_MAX_DATA_FIELDS);
-scribble_draw_reset();
+scribble_state_reset();
 
 //Duplicate GM's native color constants in string form for access in scribble_draw()
 global.__scribble_colors[? "c_aqua"   ] = c_aqua;
@@ -361,7 +376,7 @@ global.__scribble_uniform_color_blend   = shader_get_uniform(shd_scribble, "u_vC
 global.__scribble_uniform_tw_method     = shader_get_uniform(shd_scribble, "u_fTypewriterMethod"    );
 global.__scribble_uniform_tw_smoothness = shader_get_uniform(shd_scribble, "u_fTypewriterSmoothness");
 global.__scribble_uniform_tw_t          = shader_get_uniform(shd_scribble, "u_fTypewriterT"         );
-global.__scribble_uniform_data_fields   = shader_get_uniform(shd_scribble, "u_aDataFields"          );
+global.__scribble_uniform_properties    = shader_get_uniform(shd_scribble, "u_aProperties"          );
 global.__scribble_uniform_texel         = shader_get_uniform(shd_scribble, "u_fTexel"               );
 global.__scribble_uniform_z             = shader_get_uniform(shd_scribble, "u_fZ"                   );
 

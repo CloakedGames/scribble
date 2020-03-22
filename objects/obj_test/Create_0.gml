@@ -38,4 +38,4 @@ scribble_page_set(element, 0);
 scribble_tw_fade_in(element, SCRIBBLE_TW_PER_CHARACTER, 1, 10);
 
 //Don't forget to reset the state otherwise all subsequent Scribble text elements will inherit these settings
-scribble_draw_reset();
+scribble_state_reset();

@@ -265,7 +265,7 @@ if (_count > 0)
                                                                   color_get_blue( global.__scribble_state_color)/255,
                                                                   global.__scribble_state_alpha);
     
-    shader_set_uniform_f_array(global.__scribble_uniform_data_fields, global.__scribble_state_anim_array);
+    shader_set_uniform_f_array(global.__scribble_uniform_properties, global.__scribble_animation_value_array);
     
     //Now iterate over the text element's vertex buffers and submit them
     var _i = 0;
