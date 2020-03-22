@@ -5,6 +5,4 @@ var _demo_string  = "[rainbow][pulse]abcdef[] ABCDEF##";
     _demo_string += "[fnt_test_0][fa_right]THE [fnt_test_1][#ff4499][shake]QUICK[fnt_test_0] [$D2691E]BROWN [$FF4499]FOX [fa_left]JUMPS OVER[$FFFF00] THE [/shake]LAZY [fnt_test_1][wobble]DOG[/wobble].";
 
 //Draw the string
-scribble_shader_property_set("wave_size", 20);
 scribble_draw(x - 150, y - 80, _demo_string);
-scribble_state_reset();
