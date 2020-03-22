@@ -4,8 +4,14 @@
 
 #macro SCRIBBLE_HASH_NEWLINE        true   //Replaces hashes (#) with newlines (ASCII chr10) to emulate GMS1's newline behaviour
 #macro SCRIBBLE_COLORIZE_SPRITES    true   //Whether to apply the text color to non-animated sprites (animated sprites are always blended white)
-#macro SCRIBBLE_VERBOSE             true   //Enables verbose console output to aid with debugging
+#macro SCRIBBLE_VERBOSE             false  //Enables verbose console output to aid with debugging
 #macro SCRIBBLE_ADD_SPRITE_ORIGINS  false  //Whether to use sprite origins. Setting this to <false> will vertically centre sprites on the line of text
+
+
+
+#macro SCRIBBLE_WARNING_AUTOSCAN_YY_NOT_FOUND  true
+
+
 
 #region Default parameters
 
