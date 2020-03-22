@@ -1,8 +1,8 @@
 {
-    "id": "498aa41e-7fb7-49e3-b663-74ba62e7a8e6",
+    "id": "59086829-c42b-46bc-b263-7ed41965b63c",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "scribble_autotype_set_sound",
+    "name": "scribble_tw_fade_in",
     "IsCompatibility": false,
     "IsDnD": false
 }

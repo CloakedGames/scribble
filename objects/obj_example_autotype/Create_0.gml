@@ -11,7 +11,7 @@ scribble_add_color("c_smaragdine", $50c875);
 scribble_add_color("c_xanadu"    , $738678);
 scribble_add_color("c_amaranth"  , $e52b50);
 
-scribble_autotype_add_event("test event", example_event);
+scribble_tw_add_event("test event", example_event);
 
 
 
@@ -22,6 +22,6 @@ var _demo_string  = "[rainbow][pulse]abcdef[] ABCDEF[test event]##";
     _demo_string += "[fa_left][spr_sprite_font]the quick brown fox [wave]jumps[/wave] over the lazy dog";
     _demo_string += "[fnt_test_0][fa_right]THE [fnt_test_1][#ff4499][shake]QUICK[fnt_test_0] [$D2691E]BROWN [$FF4499]FOX [fa_left]JUMPS OVER[$FFFF00] THE [/shake]LAZY [fnt_test_1][wobble]DOG[/wobble].";
 
-element = scribble_draw(x - 150, y - 80, _demo_string);
-scribble_autotype_fade_in(element, SCRIBBLE_AUTOTYPE_PER_CHARACTER, 0.5, 0);
-scribble_autotype_set_sound(element, [snd_vowel_0, snd_vowel_1, snd_vowel_2, snd_vowel_3, snd_vowel_4], 30);
+element = scribble_cache(_demo_string);
+scribble_tw_fade_in(element, SCRIBBLE_TW_PER_CHARACTER, 0.5, 0);
+scribble_tw_set_sound(element, [snd_vowel_0, snd_vowel_1, snd_vowel_2, snd_vowel_3, snd_vowel_4], 30);

@@ -15,7 +15,7 @@ scribble_add_color("c_amaranth"  , $e52b50);
 scribble_set_glyph_property("spr_sprite_font", "f", SCRIBBLE_GLYPH.SEPARATION, -1, true);
 scribble_set_glyph_property("spr_sprite_font", "q", SCRIBBLE_GLYPH.SEPARATION, -1, true);
 
-scribble_autotype_add_event("sound", example_event_sound);
+scribble_tw_add_event("sound", example_event_sound);
 
 
 

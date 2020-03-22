@@ -30,7 +30,7 @@ if (ds_map_exists(global.__scribble_colors, _name))
     exit;
 }
 
-if (ds_map_exists(global.__scribble_autotype_events, _name))
+if (ds_map_exists(global.__scribble_typewriter_events, _name))
 {
     show_debug_message("Scribble: WARNING! Effect name \"" + _name + "\" has already been defined as an event");
     exit;

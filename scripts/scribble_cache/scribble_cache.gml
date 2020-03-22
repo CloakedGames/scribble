@@ -89,43 +89,43 @@ var _element_height          = 0;
 var _scribble_array      = array_create(__SCRIBBLE.__SIZE); //The text element array
 var _element_pages_array = [];                              //Stores each page of text
     
-_scribble_array[@ __SCRIBBLE.__SECTION0            ] = "-- Parameters --";
-_scribble_array[@ __SCRIBBLE.VERSION               ] = __SCRIBBLE_VERSION;
-_scribble_array[@ __SCRIBBLE.STRING                ] = _draw_string;
-_scribble_array[@ __SCRIBBLE.CACHE_STRING          ] = _cache_string;
-_scribble_array[@ __SCRIBBLE.DEFAULT_FONT          ] = _def_font;
-_scribble_array[@ __SCRIBBLE.DEFAULT_COLOR         ] = _def_colour;
-_scribble_array[@ __SCRIBBLE.DEFAULT_HALIGN        ] = _def_halign;
-_scribble_array[@ __SCRIBBLE.WIDTH_LIMIT           ] = _max_width;
-_scribble_array[@ __SCRIBBLE.HEIGHT_LIMIT          ] = _max_height;
-_scribble_array[@ __SCRIBBLE.LINE_HEIGHT           ] = _line_min_height;
+_scribble_array[@ __SCRIBBLE.__SECTION0       ] = "-- Parameters --";
+_scribble_array[@ __SCRIBBLE.VERSION          ] = __SCRIBBLE_VERSION;
+_scribble_array[@ __SCRIBBLE.STRING           ] = _draw_string;
+_scribble_array[@ __SCRIBBLE.CACHE_STRING     ] = _cache_string;
+_scribble_array[@ __SCRIBBLE.DEFAULT_FONT     ] = _def_font;
+_scribble_array[@ __SCRIBBLE.DEFAULT_COLOR    ] = _def_colour;
+_scribble_array[@ __SCRIBBLE.DEFAULT_HALIGN   ] = _def_halign;
+_scribble_array[@ __SCRIBBLE.WIDTH_LIMIT      ] = _max_width;
+_scribble_array[@ __SCRIBBLE.HEIGHT_LIMIT     ] = _max_height;
+_scribble_array[@ __SCRIBBLE.LINE_HEIGHT      ] = _line_min_height;
     
-_scribble_array[@ __SCRIBBLE.__SECTION1            ] = "-- Statistics --";
-_scribble_array[@ __SCRIBBLE.WIDTH                 ] = 0;
-_scribble_array[@ __SCRIBBLE.HEIGHT                ] = 0;
-_scribble_array[@ __SCRIBBLE.CHARACTERS            ] = 0;
-_scribble_array[@ __SCRIBBLE.LINES                 ] = 0;
-_scribble_array[@ __SCRIBBLE.PAGES                 ] = 0;
-_scribble_array[@ __SCRIBBLE.GLOBAL_INDEX          ] = global.__scribble_global_count+1;
+_scribble_array[@ __SCRIBBLE.__SECTION1       ] = "-- Statistics --";
+_scribble_array[@ __SCRIBBLE.WIDTH            ] = 0;
+_scribble_array[@ __SCRIBBLE.HEIGHT           ] = 0;
+_scribble_array[@ __SCRIBBLE.CHARACTERS       ] = 0;
+_scribble_array[@ __SCRIBBLE.LINES            ] = 0;
+_scribble_array[@ __SCRIBBLE.PAGES            ] = 0;
+_scribble_array[@ __SCRIBBLE.GLOBAL_INDEX     ] = global.__scribble_global_count+1;
     
-_scribble_array[@ __SCRIBBLE.__SECTION2            ] = "-- State --";
-_scribble_array[@ __SCRIBBLE.ANIMATION_TIME        ] = 0;
-_scribble_array[@ __SCRIBBLE.TIME                  ] = current_time;
-_scribble_array[@ __SCRIBBLE.FREED                 ] = false;
-_scribble_array[@ __SCRIBBLE.SOUND_FINISH_TIME     ] = current_time;
+_scribble_array[@ __SCRIBBLE.__SECTION2       ] = "-- State --";
+_scribble_array[@ __SCRIBBLE.ANIMATION_TIME   ] = 0;
+_scribble_array[@ __SCRIBBLE.TIME             ] = current_time;
+_scribble_array[@ __SCRIBBLE.FREED            ] = false;
+_scribble_array[@ __SCRIBBLE.SOUND_FINISH_TIME] = current_time;
     
-_scribble_array[@ __SCRIBBLE.__SECTION3            ] = "-- Pages --";
-_scribble_array[@ __SCRIBBLE.PAGES_ARRAY           ] = _element_pages_array;
+_scribble_array[@ __SCRIBBLE.__SECTION3       ] = "-- Pages --";
+_scribble_array[@ __SCRIBBLE.PAGES_ARRAY      ] = _element_pages_array;
         
-_scribble_array[@ __SCRIBBLE.__SECTION4            ] = "-- Autotype --";
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_PAGE         ] =  0;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_FADE_IN      ] = -1;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_SPEED        ] =  0;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_POSITION     ] =  0;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_METHOD       ] = SCRIBBLE_AUTOTYPE_NONE;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_SMOOTHNESS   ] =  0;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_SOUND_ARRAY  ] = -1;
-_scribble_array[@ __SCRIBBLE.AUTOTYPE_SOUND_OVERLAP] =  0;
+_scribble_array[@ __SCRIBBLE.__SECTION4       ] = "-- Typewriter --";
+_scribble_array[@ __SCRIBBLE.TW_PAGE          ] =  0;
+_scribble_array[@ __SCRIBBLE.TW_FADE_IN       ] = -1;
+_scribble_array[@ __SCRIBBLE.TW_SPEED         ] =  0;
+_scribble_array[@ __SCRIBBLE.TW_POSITION      ] =  0;
+_scribble_array[@ __SCRIBBLE.TW_METHOD        ] = SCRIBBLE_TW_NONE;
+_scribble_array[@ __SCRIBBLE.TW_SMOOTHNESS    ] =  0;
+_scribble_array[@ __SCRIBBLE.TW_SOUND_ARRAY   ] = -1;
+_scribble_array[@ __SCRIBBLE.TW_SOUND_OVERLAP ] =  0;
         
 #endregion
         
@@ -405,7 +405,7 @@ repeat(_buffer_size)
                 #endregion
                 
                 default:
-                    if (ds_map_exists(global.__scribble_autotype_events, _command_name))
+                    if (ds_map_exists(global.__scribble_typewriter_events, _command_name))
                     {
                         #region Events
                                 

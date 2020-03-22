@@ -1,4 +1,4 @@
-/// An example event called by Scribble's autotype feature
+/// An example event called by Scribble's typewriter feature
 /// 
 /// @param   textElement
 /// @param   eventData{array}
@@ -8,4 +8,4 @@ var _text_element = argument0;
 var _event_data   = argument1;
 var _char_index   = argument2;
 
-_text_element[@ __SCRIBBLE.AUTOTYPE_SPEED] = 0;
+_text_element[@ __SCRIBBLE.TW_SPEED] = 0;

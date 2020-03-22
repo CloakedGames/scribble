@@ -1,4 +1,4 @@
-/// An example event called by Scribble's autotype feature
+/// An example event called by Scribble's typewriter feature
 /// 
 /// @param   textElement
 /// @param   eventData{array}

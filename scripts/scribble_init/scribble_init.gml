@@ -188,14 +188,14 @@ enum __SCRIBBLE
     PAGES_ARRAY,            //22
     
     __SECTION4,             //23
-    AUTOTYPE_PAGE,          //24
-    AUTOTYPE_FADE_IN,       //25
-    AUTOTYPE_SPEED,         //26
-    AUTOTYPE_POSITION,      //27
-    AUTOTYPE_METHOD,        //28
-    AUTOTYPE_SMOOTHNESS,    //29
-    AUTOTYPE_SOUND_ARRAY,   //30
-    AUTOTYPE_SOUND_OVERLAP, //31
+    TW_PAGE,          //24
+    TW_FADE_IN,       //25
+    TW_SPEED,         //26
+    TW_POSITION,      //27
+    TW_METHOD,        //28
+    TW_SMOOTHNESS,    //29
+    TW_SOUND_ARRAY,   //30
+    TW_SOUND_OVERLAP, //31
     
     __SIZE                  //32
 }
@@ -206,16 +206,16 @@ enum __SCRIBBLE
 #macro __SCRIBBLE_ON_WEB               (os_browser != browser_not_a_browser)
 #macro __SCRIBBLE_GLYPH_BYTE_SIZE      (6*__SCRIBBLE_VERTEX.__SIZE)
 #macro __SCRIBBLE_EXPECTED_GLYPHS      100
-#macro __SCRIBBLE_EXPECTED_FRAME_TIME  (0.95*game_get_speed(gamespeed_microseconds)/1000) //Uses to prevent the autotype from advancing if a draw call is made multiple times a frame to the same text element
+#macro __SCRIBBLE_EXPECTED_FRAME_TIME  (0.95*game_get_speed(gamespeed_microseconds)/1000) //Uses to prevent the typewriter from advancing if a draw call is made multiple times a frame to the same text element
 
 //These are tied to values in shd_scribble
 //If you need to change these for some reason, you'll need to change shd_scribble too
-#macro SCRIBBLE_AUTOTYPE_NONE           0  //No fade
-#macro SCRIBBLE_AUTOTYPE_PER_CHARACTER  1  //Fade each character individually
-#macro SCRIBBLE_AUTOTYPE_PER_LINE       2  //Fade each line of text as a group
-#macro SCRIBBLE_FADE_NONE               SCRIBBLE_AUTOTYPE_NONE
-#macro SCRIBBLE_FADE_PER_CHARACTER      SCRIBBLE_AUTOTYPE_PER_CHARACTER
-#macro SCRIBBLE_FADE_PER_LINE           SCRIBBLE_AUTOTYPE_PER_LINE
+#macro SCRIBBLE_TW_NONE             0  //No fade
+#macro SCRIBBLE_TW_PER_CHARACTER    1  //Fade each character individually
+#macro SCRIBBLE_TW_PER_LINE         2  //Fade each line of text as a group
+#macro SCRIBBLE_FADE_NONE           SCRIBBLE_TW_NONE
+#macro SCRIBBLE_FADE_PER_CHARACTER  SCRIBBLE_TW_PER_CHARACTER
+#macro SCRIBBLE_FADE_PER_LINE       SCRIBBLE_TW_PER_LINE
 
 #endregion
 
@@ -291,7 +291,7 @@ global.__scribble_font_data         = ds_map_create();  //Stores a data array fo
 global.__scribble_colors            = ds_map_create();  //Stores color definitions, including custom colors
 global.__scribble_effects           = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
 global.__scribble_effects_slash     = ds_map_create();  //Bidirectional lookup - stores name:index as well as index:name
-global.__scribble_autotype_events   = ds_map_create();
+global.__scribble_typewriter_events   = ds_map_create();
 global.scribble_alive               = ds_map_create();  //ds_map of all alive text elements
 global.__scribble_global_count      = 0;
 global.__scribble_default_font      = _default_font;

@@ -7,7 +7,7 @@ scribble_add_color("c_smaragdine", $50c875);
 scribble_add_color("c_xanadu"    , $738678);
 scribble_add_color("c_amaranth"  , $e52b50);
 
-scribble_autotype_add_event("pause", example_pause);
+scribble_tw_add_event("pause", example_pause);
 
 scribble_set_glyph_property("spr_sprite_font", "f", SCRIBBLE_GLYPH.SEPARATION, -1, true);
 scribble_set_glyph_property("spr_sprite_font", "q", SCRIBBLE_GLYPH.SEPARATION, -1, true);
@@ -35,7 +35,7 @@ scribble_state_max_height = 100;
 //We're using a cache group called "example cache group" to indicate we want to manage this memory ourselves
 element = scribble_cache(demo_string, "example cache group", true);
 scribble_page_set(element, 0);
-scribble_autotype_fade_in(element, SCRIBBLE_AUTOTYPE_PER_CHARACTER, 1, 10);
+scribble_tw_fade_in(element, SCRIBBLE_TW_PER_CHARACTER, 1, 10);
 
 //Don't forget to reset the state otherwise all subsequent Scribble text elements will inherit these settings
 scribble_draw_reset();
