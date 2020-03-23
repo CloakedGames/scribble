@@ -90,7 +90,7 @@
             "Key": "0dd07d6f-79d9-492e-b1d7-08cf56740f87",
             "Value": {
                 "id": "f4cae519-f1e4-48fa-8846-62cb3016b42c",
-                "resourcePath": "scripts\\scribble_add_font_outline\\scribble_add_font_outline.yy",
+                "resourcePath": "scripts\\scribble_font_bake_outline\\scribble_font_bake_outline.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -180,6 +180,14 @@
                 "id": "63127bdc-96de-49e7-8e55-36517dbc9aff",
                 "resourcePath": "sprites\\spr_sprite_font\\spr_sprite_font.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "4627a980-1521-4b2b-88c1-898015b4e94d",
+            "Value": {
+                "id": "34e82856-db7d-4fbb-b5c5-7f89e8541a63",
+                "resourcePath": "shaders\\shd_scribble_bake_outline\\shd_scribble_bake_outline.yy",
+                "resourceType": "GMShader"
             }
         },
         {

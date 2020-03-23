@@ -1,11 +1,13 @@
 /// @param sourceFontName
 /// @param newFontName
+/// @param outlineSize
+/// @param outlineColor
 
 var _source_font_name = argument0;
 var _new_font_name    = argument1;
+var _outline_size     = argument2;
+var _outline_color    = argument3;
 
-var _outline_color = c_black;
-var _outline_size = 1;
 var _padding      = 2;
 
 var _texture_page_size = 512;
@@ -16,8 +18,10 @@ if (_source_font_name == _new_font_name)
     return undefined;
 }
 
-var _src_array = global.__scribble_font_data[? _source_font_name];
-var _src_glyphs_map = _src_array[__SCRIBBLE_FONT.GLYPHS_MAP];
+
+
+var _src_font_array = global.__scribble_font_data[? _source_font_name];
+var _src_glyphs_map = _src_font_array[__SCRIBBLE_FONT.GLYPHS_MAP];
 if (_src_glyphs_map != undefined)
 {
     var _uses_glyph_map = true;
@@ -36,7 +40,7 @@ if (_src_glyphs_map != undefined)
 else
 {
     var _uses_glyph_map = false;
-    var _src_glyphs_array = _src_array[__SCRIBBLE_FONT.GLYPHS_ARRAY];
+    var _src_glyphs_array = _src_font_array[__SCRIBBLE_FONT.GLYPHS_ARRAY];
 }
 
 var _priority_queue = ds_priority_create();
@@ -50,9 +54,8 @@ repeat(array_length_1d(_src_glyphs_array))
         var _character   = _glyph_array[SCRIBBLE_GLYPH.CHARACTER];
         if (_character != " ")
         {
-            var _width       = _glyph_array[SCRIBBLE_GLYPH.WIDTH    ];
-            var _height      = _glyph_array[SCRIBBLE_GLYPH.HEIGHT   ];
-        
+            var _width      = _glyph_array[SCRIBBLE_GLYPH.WIDTH ];
+            var _height     = _glyph_array[SCRIBBLE_GLYPH.HEIGHT];
             var _width_ext  = _width  + _padding + 2*_outline_size;
             var _height_ext = _height + _padding + 2*_outline_size;
         
@@ -224,14 +227,14 @@ if (_found)
     var _surface_1 = surface_create(_texture_page_size, _texture_page_size);
     
     surface_set_target(_surface_0);
-    draw_clear_alpha(c_black, 0.0);
-    vertex_submit(_vbuff, pr_trianglelist, _src_array[__SCRIBBLE_FONT.TEXTURE]);
+    draw_clear_alpha(c_white, 0.0);
+    vertex_submit(_vbuff, pr_trianglelist, _src_font_array[__SCRIBBLE_FONT.TEXTURE]);
     vertex_delete_buffer(_vbuff);
     surface_reset_target();
     
     
     surface_set_target(_surface_1);
-    draw_clear_alpha(c_black, 0.0);
+    draw_clear_alpha(c_white, 0.0);
     
     gpu_set_fog(true, _outline_color, 0, 0);
     var _y = -_outline_size;
@@ -259,6 +262,91 @@ if (_found)
     surface_free(_surface_1);
     
     sprite_save(_sprite, 0, "outline.png");
+    
+    
+    
+    var _texture = sprite_get_texture(_sprite, 0);
+    var _sprite_uvs = sprite_get_uvs(_sprite, 0);
+    var _sprite_u0 = _sprite_uvs[0];
+    var _sprite_v0 = _sprite_uvs[1];
+    var _sprite_u1 = _sprite_uvs[2];
+    var _sprite_v1 = _sprite_uvs[3];
+    
+    var _new_font_array = array_create(__SCRIBBLE_FONT.__SIZE);
+    array_copy(_new_font_array, 0, _src_font_array, 0, array_length_1d(_src_font_array));
+    _new_font_array[@ __SCRIBBLE_FONT.NAME        ] = _new_font_name;
+    _new_font_array[@ __SCRIBBLE_FONT.PATH        ] = undefined;
+    _new_font_array[@ __SCRIBBLE_FONT.GLYPHS_MAP  ] = undefined;
+    _new_font_array[@ __SCRIBBLE_FONT.GLYPHS_ARRAY] = undefined;
+    _new_font_array[@ __SCRIBBLE_FONT.TEXTURE     ] = _texture;
+    global.__scribble_font_data[? _new_font_name] = _new_font_array;
+    
+    
+    if (_uses_glyph_map)
+    {
+        var _new_glyph_map = ds_map_create();
+        _new_font_array[@ __SCRIBBLE_FONT.GLYPHS_MAP] = _new_glyph_map;
+        
+        var _array = array_create(SCRIBBLE_GLYPH.__SIZE);
+        array_copy(_array, 0, _src_glyphs_map[? 32], 0, SCRIBBLE_GLYPH.__SIZE);
+        _new_glyph_map[? 32] = _array;
+    }
+    else
+    {
+        var _glyph_min = _new_font_array[__SCRIBBLE_FONT.GLYPH_MIN];
+        var _glyph_max = _new_font_array[__SCRIBBLE_FONT.GLYPH_MAX];
+        
+        var _new_glyph_array = array_create(1 + _glyph_max - _glyph_min, undefined);
+        _new_font_array[@ __SCRIBBLE_FONT.GLYPHS_ARRAY] = _new_glyph_array;
+        
+        var _array = array_create(SCRIBBLE_GLYPH.__SIZE);
+        array_copy(_array, 0, _src_glyphs_array[32 - _glyph_min], 0, SCRIBBLE_GLYPH.__SIZE);
+        _new_glyph_array[@ 32 - _glyph_min] = _array;
+    }
+    
+    var _i = 0;
+    repeat(array_length_1d(_surface_glyphs))
+    {
+        var _glyph_position = _surface_glyphs[_i];
+        
+        var _index = _glyph_position[4];
+        var _src_glyph_array = _src_glyphs_array[_index];
+        var _ord = _src_glyph_array[SCRIBBLE_GLYPH.INDEX];
+        
+        var _l = _glyph_position[0];
+        var _t = _glyph_position[1];
+        var _r = _glyph_position[2] - 1;
+        var _b = _glyph_position[3] - 1;
+        
+        var _u0 = lerp(_sprite_u0, _sprite_u1, _l / _texture_page_size);
+        var _v0 = lerp(_sprite_v0, _sprite_v1, _t / _texture_page_size);
+        var _u1 = lerp(_sprite_u0, _sprite_u1, _r / _texture_page_size);
+        var _v1 = lerp(_sprite_v0, _sprite_v1, _b / _texture_page_size);
+        
+    	var _array = array_create(SCRIBBLE_GLYPH.__SIZE, 0);
+    	_array[@ SCRIBBLE_GLYPH.CHARACTER ] = _src_glyph_array[SCRIBBLE_GLYPH.CHARACTER ];
+    	_array[@ SCRIBBLE_GLYPH.INDEX     ] = _ord;
+    	_array[@ SCRIBBLE_GLYPH.WIDTH     ] = _src_glyph_array[SCRIBBLE_GLYPH.WIDTH     ] + 2*_outline_size;
+    	_array[@ SCRIBBLE_GLYPH.HEIGHT    ] = _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT    ] + 2*_outline_size;
+    	_array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.X_OFFSET  ] - _outline_size;
+    	_array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.Y_OFFSET  ] - _outline_size;
+    	_array[@ SCRIBBLE_GLYPH.SEPARATION] = _src_glyph_array[SCRIBBLE_GLYPH.SEPARATION] + _outline_size;
+    	_array[@ SCRIBBLE_GLYPH.U0        ] = _u0;
+    	_array[@ SCRIBBLE_GLYPH.V0        ] = _v0;
+    	_array[@ SCRIBBLE_GLYPH.U1        ] = _u1;
+    	_array[@ SCRIBBLE_GLYPH.V1        ] = _v1;
+        
+        if (_uses_glyph_map)
+        {
+            _new_glyph_map[? _ord] = _array;
+        }
+        else
+        {
+    	    _new_glyph_array[@ _ord - _glyph_min] = _array;
+        }
+        
+        ++_i;
+    }
 }
 else
 {
