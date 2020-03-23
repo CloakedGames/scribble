@@ -315,8 +315,8 @@ if (_found)
         
         var _l = _glyph_position[0];
         var _t = _glyph_position[1];
-        var _r = _glyph_position[2] - 1;
-        var _b = _glyph_position[3] - 1;
+        var _r = _l + _src_glyph_array[SCRIBBLE_GLYPH.WIDTH ] + 2*_outline_size;
+        var _b = _t + _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT] + 2*_outline_size;
         
         var _u0 = lerp(_sprite_u0, _sprite_u1, _l / _texture_page_size);
         var _v0 = lerp(_sprite_v0, _sprite_v1, _t / _texture_page_size);
