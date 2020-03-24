@@ -1,14 +1,14 @@
-/// @param sourceFontName
-/// @param newFontName
-/// @param shader
-/// @param emptyBorderSize
-/// @param leftPad
-/// @param topPad
-/// @param rightPad
-/// @param bottomPad
-/// @param glyphSeparation
-/// @param smooth
-/// @param [textureSize]
+/// @param sourceFontName  
+/// @param newFontName     
+/// @param shader          
+/// @param emptyBorderSize 
+/// @param leftPad         
+/// @param topPad          
+/// @param rightPad        
+/// @param bottomPad       
+/// @param glyphSeparation 
+/// @param smooth          
+/// @param [textureSize]   
 
 var _source_font_name = argument[0];
 var _new_font_name    = argument[1];

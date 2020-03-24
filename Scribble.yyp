@@ -90,7 +90,7 @@
             "Key": "0dd07d6f-79d9-492e-b1d7-08cf56740f87",
             "Value": {
                 "id": "f4cae519-f1e4-48fa-8846-62cb3016b42c",
-                "resourcePath": "scripts\\scribble_font_bake_outline\\scribble_font_bake_outline.yy",
+                "resourcePath": "scripts\\scribble_bake_font_outline\\scribble_bake_font_outline.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -658,7 +658,7 @@
             "Key": "cee2c7a7-26b4-4ce6-a5ad-a76b11c5de4a",
             "Value": {
                 "id": "5e032fc2-0aec-47f6-8230-aae1c689a7b0",
-                "resourcePath": "scripts\\scribble_font_bake\\scribble_font_bake.yy",
+                "resourcePath": "scripts\\scribble_bake_font_effect\\scribble_bake_font_effect.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -839,7 +839,6 @@
         "78e35bbe-fd42-485e-9818-8c5f23d7c5b9",
         "d934110d-0067-4412-8563-3af79a256c25",
         "0dd07d6f-79d9-492e-b1d7-08cf56740f87",
-        "cee2c7a7-26b4-4ce6-a5ad-a76b11c5de4a",
         "0a93a84f-87c9-4473-adf8-f92fd1d1e19f",
         "85e0350a-70e4-4ed9-b9fc-f01ceb507eb2",
         "bf269b8e-eb65-4528-b05e-d89efb7d6c87",
@@ -863,6 +862,7 @@
         "853cc3dc-bb29-429c-b828-a68514d4f06e",
         "7bdb59ac-8d6a-44cc-85b4-a2e5bb6c758b",
         "00322d5b-d6eb-4d4e-b389-bb26da697b1d",
+        "cee2c7a7-26b4-4ce6-a5ad-a76b11c5de4a",
         "7f249531-321e-43d7-92bc-258842287e9d",
         "16333f16-885e-4b0b-98e8-9726a0f9c0b0",
         "acb5d2b0-8c3c-42de-b368-9e1978761cce"
