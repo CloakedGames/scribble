@@ -1,4 +1,8 @@
 scribble_init("fnt_test_0", "Fonts", true);
+
+//var _fnt_test_3_sprite = sprite_add("Fonts\\fnt_test_3.png", 0, false, false, 0, 0);
+//scribble_add_font("fnt_test_3", "fnt_test_3.yy", sprite_get_texture(_fnt_test_3_sprite, 0));
+
 var _mapstring = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-;:_+-*/\\'\"!?~^°<>|(){[]}%&=#@$ÄÖÜäöüß";
 scribble_add_spritefont("spr_sprite_font", _mapstring, 0, 11);
 

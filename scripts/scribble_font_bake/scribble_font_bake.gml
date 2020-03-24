@@ -84,7 +84,7 @@ repeat(array_length_1d(_src_glyphs_array))
 
 
 //Pack glyphs on the texture page
-show_debug_message("Scribble: " + string(ds_priority_size(_priority_queue)) + " glyphs to pack");
+//show_debug_message("Scribble: " + string(ds_priority_size(_priority_queue)) + " glyphs to pack");
 
 var _surface_glyphs = [];
 var _added_count = 0;
@@ -98,7 +98,7 @@ while(!ds_priority_empty(_priority_queue))
     var _width_ext   = _width  + _border + _l_pad + _r_pad;
     var _height_ext  = _height + _border + _t_pad + _b_pad;
     
-    show_debug_message("Scribble: Packing \"" + _character + "\" (" + string(_index) + "), size=" + string(_width_ext) + "," + string(_height_ext));
+    //show_debug_message("Scribble: Packing \"" + _character + "\" (" + string(_index) + "), size=" + string(_width_ext) + "," + string(_height_ext));
     
     if (_added_count == 0)
     {
