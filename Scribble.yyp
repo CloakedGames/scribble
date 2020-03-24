@@ -287,14 +287,6 @@
             }
         },
         {
-            "Key": "745dc700-10d2-41fe-8d25-084da388cf15",
-            "Value": {
-                "id": "3f4eae8e-b2b6-4dd8-97f5-8c6c7f355fd7",
-                "resourcePath": "scripts\\scribble_font_bake_effect\\scribble_font_bake_effect.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "74d4828d-df60-4163-9a0f-713e1e653208",
             "Value": {
                 "id": "4c990981-3742-44f0-9749-f5a58ddb3ae2",
@@ -823,7 +815,6 @@
         "78e35bbe-fd42-485e-9818-8c5f23d7c5b9",
         "d934110d-0067-4412-8563-3af79a256c25",
         "0dd07d6f-79d9-492e-b1d7-08cf56740f87",
-        "745dc700-10d2-41fe-8d25-084da388cf15",
         "0a93a84f-87c9-4473-adf8-f92fd1d1e19f",
         "85e0350a-70e4-4ed9-b9fc-f01ceb507eb2",
         "bf269b8e-eb65-4528-b05e-d89efb7d6c87",

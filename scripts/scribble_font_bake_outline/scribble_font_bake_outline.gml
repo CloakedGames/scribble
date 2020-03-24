@@ -1,16 +1,19 @@
 /// @param sourceFontName
 /// @param newFontName
 /// @param outlineSize
+/// @param outlineSamples
 /// @param outlineColor
+/// @param smooth
 
 var _source_font_name = argument0;
 var _new_font_name    = argument1;
 var _outline_size     = argument2;
-var _outline_color    = argument3;
+var _outline_samples  = argument3;
+var _outline_color    = argument4;
+var _smooth           = argument5;
 
-var _padding      = 2;
-
-var _texture_page_size = 512;
+var _padding           =    2;
+var _texture_page_size = 2048;
 
 if (_source_font_name == _new_font_name)
 {
@@ -240,17 +243,23 @@ if (_found)
     
     surface_set_target(_surface_1);
     draw_clear_alpha(c_white, 0.0);
+    
+    var _old_filter = gpu_get_tex_filter();
+    gpu_set_tex_filter(_smooth);
     gpu_set_blendenable(false);
     if (_outline_size > 0)
     {
         shader_set(shd_scribble_bake_outline);
         shader_set_uniform_f(shader_get_uniform(shader_current(), "u_vTexel"), texture_get_texel_width(_texture), texture_get_texel_height(_texture));
         shader_set_uniform_i(shader_get_uniform(shader_current(), "u_iOutlineSize"), _outline_size);
+        shader_set_uniform_i(shader_get_uniform(shader_current(), "u_iOutlineSamples"), _outline_samples);
         shader_set_uniform_f(shader_get_uniform(shader_current(), "u_vOutlineColor"), color_get_red(  _outline_color)/255,
                                                                                       color_get_green(_outline_color)/255,
                                                                                       color_get_blue( _outline_color)/255);
     }
     draw_surface(0, 0, _surface_0);
+    gpu_set_tex_filter(_old_filter);
+    
     shader_reset();
     gpu_set_blendenable(true);
     surface_reset_target();
