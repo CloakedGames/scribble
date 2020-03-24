@@ -1,22 +1,31 @@
 /// @param sourceFontName
 /// @param newFontName
-/// @param outlineSize
-/// @param outlineColor
+/// @param emptyPadding
+/// @param leftPad
+/// @param topPad
+/// @param rightPad
+/// @param bottomPad
+/// @param texturePageSize
 
-var _source_font_name = argument0;
-var _new_font_name    = argument1;
-var _outline_size     = argument2;
-var _outline_color    = argument3;
-
-var _padding      = 2;
-
-var _texture_page_size = 512;
+var _source_font_name  = argument0;
+var _new_font_name     = argument1;
+var _padding           = argument2;
+var _l_pad             = argument3;
+var _t_pad             = argument4;
+var _r_pad             = argument5;
+var _b_pad             = argument6;
+var _texture_page_size = argument7;
 
 if (_source_font_name == _new_font_name)
 {
     show_error("Scribble:\nSource font and new font cannot share the same name\n ", false);
     return undefined;
 }
+
+
+
+var _h_pad = _padding + _l_pad + _r_pad;
+var _v_pad = _padding + _t_pad + _b_pad;
 
 
 
@@ -189,7 +198,15 @@ while(!ds_priority_empty(_priority_queue))
     }
 }
 
-if (_found)
+ds_priority_destroy(_priority_queue);
+
+
+
+if (!_found)
+{
+    show_error("Scribble:\nNo space left on " + string(_texture_page_size) + "x" + string(_texture_page_size) + " texture page\nPlease increase the size of the texture page\n ", false);
+}
+else
 {
     var _vbuff = vertex_create_buffer();
     vertex_begin(_vbuff, global.__scribble_passthrough_vertex_format);
@@ -201,8 +218,8 @@ if (_found)
         var _index = _glyph_position[4];
         var _glyph_array = _src_glyphs_array[_index];
         
-        var _l  = _glyph_position[0] + _outline_size;
-        var _t  = _glyph_position[1] + _outline_size;
+        var _l  = _glyph_position[0] + _x_offset;
+        var _t  = _glyph_position[1] + _y_offset;
         var _r  = _l + _glyph_array[SCRIBBLE_GLYPH.WIDTH ];
         var _b  = _t + _glyph_array[SCRIBBLE_GLYPH.HEIGHT];
         var _u0 = _glyph_array[SCRIBBLE_GLYPH.U0];
@@ -227,7 +244,6 @@ if (_found)
     
     var _texture = _src_font_array[__SCRIBBLE_FONT.TEXTURE];
     var _surface_0 = surface_create(_texture_page_size, _texture_page_size);
-    var _surface_1 = surface_create(_texture_page_size, _texture_page_size);
     
     surface_set_target(_surface_0);
     draw_clear_alpha(c_white, 0.0);
@@ -236,30 +252,30 @@ if (_found)
     gpu_set_blendenable(true);
     surface_reset_target();
     
-    var _texture = surface_get_texture(_surface_0);
+    
+    vertex_delete_buffer(_vbuff);
+    var _surface_1 = surface_create(_texture_page_size, _texture_page_size);
     
     surface_set_target(_surface_1);
     draw_clear_alpha(c_white, 0.0);
     gpu_set_blendenable(false);
-    if (_outline_size > 0)
+    
+    if (shader_current() >= 0)
     {
-        shader_set(shd_scribble_bake_outline);
+        var _texture = surface_get_texture(_surface_0);
         shader_set_uniform_f(shader_get_uniform(shader_current(), "u_vTexel"), texture_get_texel_width(_texture), texture_get_texel_height(_texture));
-        shader_set_uniform_i(shader_get_uniform(shader_current(), "u_iOutlineSize"), _outline_size);
-        shader_set_uniform_f(shader_get_uniform(shader_current(), "u_vOutlineColor"), color_get_red(  _outline_color)/255,
-                                                                                      color_get_green(_outline_color)/255,
-                                                                                      color_get_blue( _outline_color)/255);
     }
+    
     draw_surface(0, 0, _surface_0);
-    shader_reset();
+    
     gpu_set_blendenable(true);
     surface_reset_target();
     
-    var _sprite = sprite_create_from_surface(_surface_1, 0, 0, _texture_page_size, _texture_page_size, false, false, 0, 0);
     surface_free(_surface_0);
-    vertex_delete_buffer(_vbuff);
+    var _sprite = sprite_create_from_surface(_surface_1, 0, 0, _texture_page_size, _texture_page_size, false, false, 0, 0);
+    surface_free(_surface_1);
     
-    sprite_save(_sprite, 0, "outline.png");
+    sprite_save(_sprite, 0, "baked.png");
     
     
     
@@ -326,8 +342,8 @@ if (_found)
     	_array[@ SCRIBBLE_GLYPH.INDEX     ] = _ord;
     	_array[@ SCRIBBLE_GLYPH.WIDTH     ] = _src_glyph_array[SCRIBBLE_GLYPH.WIDTH     ] + 2*_outline_size;
     	_array[@ SCRIBBLE_GLYPH.HEIGHT    ] = _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT    ] + 2*_outline_size;
-    	_array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.X_OFFSET  ] - _outline_size;
-    	_array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.Y_OFFSET  ] - _outline_size;
+    	_array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.X_OFFSET  ] - _x_offset;
+    	_array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.Y_OFFSET  ] - _y_offset;
     	_array[@ SCRIBBLE_GLYPH.SEPARATION] = _src_glyph_array[SCRIBBLE_GLYPH.SEPARATION] + _outline_size;
     	_array[@ SCRIBBLE_GLYPH.U0        ] = _u0;
     	_array[@ SCRIBBLE_GLYPH.V0        ] = _v0;
@@ -346,11 +362,3 @@ if (_found)
         ++_i;
     }
 }
-else
-{
-    show_error("Scribble:\nNo space left on " + string(_texture_page_size) + "x" + string(_texture_page_size) + " texture page\nPlease increase the size of the texture page\n ", false);
-}
-
-
-
-ds_priority_destroy(_priority_queue);
