@@ -119,6 +119,14 @@
             }
         },
         {
+            "Key": "27cb90dd-ded1-4cda-bdcf-3c8ef898213c",
+            "Value": {
+                "id": "69c76561-787b-4c01-b22d-8f409b80f240",
+                "resourcePath": "datafiles_yy\\Fonts\\fnt_test_1.yy.yy",
+                "resourceType": "GMIncludedFile"
+            }
+        },
+        {
             "Key": "28357be7-a526-40ce-81df-e99d6ab481e8",
             "Value": {
                 "id": "4b509518-0a25-444b-baef-7a0f18eced10",
@@ -268,6 +276,14 @@
                 "id": "76fa070b-8e2e-40b2-8d13-e714ed7540fb",
                 "resourcePath": "scripts\\scribble_page_set\\scribble_page_set.yy",
                 "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "709cffcc-8a6d-468e-a75b-6c61278b74ba",
+            "Value": {
+                "id": "c811b80f-329a-46c1-b53e-da1764a6a1ca",
+                "resourcePath": "datafiles_yy\\Fonts\\fnt_test_3.png.yy",
+                "resourceType": "GMIncludedFile"
             }
         },
         {
@@ -439,14 +455,6 @@
             }
         },
         {
-            "Key": "8b719297-79d2-452e-a819-2bc38ead33df",
-            "Value": {
-                "id": "134cb2e9-0909-4d71-bcca-93b17102dd6c",
-                "resourcePath": "datafiles_yy\\Fonts\\fnt_test_0.yy.yy",
-                "resourceType": "GMIncludedFile"
-            }
-        },
-        {
             "Key": "93566aad-c3b3-48a9-8fa7-9c5ee19f74ac",
             "Value": {
                 "id": "1cee5268-8b35-41a3-890f-d73bbcbe5ce0",
@@ -559,6 +567,14 @@
             }
         },
         {
+            "Key": "aefc2055-606d-4c2e-b98c-874076f93787",
+            "Value": {
+                "id": "228dc711-a862-459a-b157-9836ae11e215",
+                "resourcePath": "datafiles_yy\\Fonts\\fnt_test_3.yy.yy",
+                "resourceType": "GMIncludedFile"
+            }
+        },
+        {
             "Key": "af351a91-b500-4885-8108-50d26b8cae5d",
             "Value": {
                 "id": "7db89e88-200b-4c6e-b9a1-319e739fee54",
@@ -655,6 +671,14 @@
             }
         },
         {
+            "Key": "d211a978-9cfe-4921-851c-ed526a7c8fd6",
+            "Value": {
+                "id": "f721d5e0-95a1-4700-9559-672bf45c1f7b",
+                "resourcePath": "datafiles_yy\\Fonts\\fnt_test_0.yy.yy",
+                "resourceType": "GMIncludedFile"
+            }
+        },
+        {
             "Key": "d31795bd-3e13-4c6b-bec6-ccf6cfdf0bce",
             "Value": {
                 "id": "897c9eeb-3a61-4efe-bf6f-c17ad23d001f",
@@ -692,14 +716,6 @@
                 "id": "097da67d-0eba-44a0-8a35-8659d042920e",
                 "resourcePath": "rooms\\rm_example_basic\\rm_example_basic.yy",
                 "resourceType": "GMRoom"
-            }
-        },
-        {
-            "Key": "dd1eb3eb-ccda-480f-8d25-1b232369a0ae",
-            "Value": {
-                "id": "c3de2246-e589-4090-a56b-3d1faef33d9b",
-                "resourcePath": "datafiles_yy\\Fonts\\fnt_test_1.yy.yy",
-                "resourceType": "GMIncludedFile"
             }
         },
         {
