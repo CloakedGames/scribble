@@ -56,7 +56,8 @@ if (ds_map_exists(global.__scribble_cache_group_map, _target))
                 }
                 ++_p;
             }
-        
+            
+            ds_map_destroy(_scribble_array[@ __SCRIBBLE.OCCURANCE_MAP]);
             _scribble_array[@ __SCRIBBLE.FREED] = true;
         }
         

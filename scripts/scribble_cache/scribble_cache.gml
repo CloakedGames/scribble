@@ -2,9 +2,9 @@
 /// @param [cacheGroup]
 /// @param [freeze]
 
-var _draw_string  = argument[0];
-var _cache_group  = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : SCRIBBLE_DEFAULT_CACHE_GROUP;
-var _freeze       = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : false;
+var _draw_string = argument[0];
+var _cache_group = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : SCRIBBLE_DEFAULT_CACHE_GROUP;
+var _freeze      = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : false;
 
 
 
@@ -88,46 +88,37 @@ var _element_height          = 0;
     
 var _scribble_array      = array_create(__SCRIBBLE.__SIZE); //The text element array
 var _element_pages_array = [];                              //Stores each page of text
+var _occurance_map       = ds_map_create();
     
-_scribble_array[@ __SCRIBBLE.__SECTION0        ] = "-- Parameters --";
-_scribble_array[@ __SCRIBBLE.VERSION           ] = __SCRIBBLE_VERSION;
-_scribble_array[@ __SCRIBBLE.STRING            ] = _draw_string;
-_scribble_array[@ __SCRIBBLE.CACHE_STRING      ] = _cache_string;
-_scribble_array[@ __SCRIBBLE.DEFAULT_FONT      ] = _def_font;
-_scribble_array[@ __SCRIBBLE.DEFAULT_COLOR     ] = _def_colour;
-_scribble_array[@ __SCRIBBLE.DEFAULT_HALIGN    ] = _def_halign;
-_scribble_array[@ __SCRIBBLE.WIDTH_LIMIT       ] = _max_width;
-_scribble_array[@ __SCRIBBLE.HEIGHT_LIMIT      ] = _max_height;
-_scribble_array[@ __SCRIBBLE.LINE_HEIGHT       ] = _line_min_height;
-                                               
-_scribble_array[@ __SCRIBBLE.__SECTION1        ] = "-- Statistics --";
-_scribble_array[@ __SCRIBBLE.WIDTH             ] = 0;
-_scribble_array[@ __SCRIBBLE.HEIGHT            ] = 0;
-_scribble_array[@ __SCRIBBLE.CHARACTERS        ] = 0;
-_scribble_array[@ __SCRIBBLE.LINES             ] = 0;
-_scribble_array[@ __SCRIBBLE.PAGES             ] = 0;
-                                               
-_scribble_array[@ __SCRIBBLE.__SECTION2        ] = "-- State --";
-_scribble_array[@ __SCRIBBLE.ANIMATION_TIME    ] = 0;
-_scribble_array[@ __SCRIBBLE.TIME              ] = current_time;
-_scribble_array[@ __SCRIBBLE.FREED             ] = false;
-_scribble_array[@ __SCRIBBLE.SOUND_FINISH_TIME ] = current_time;
-                                               
-_scribble_array[@ __SCRIBBLE.__SECTION3        ] = "-- Pages --";
-_scribble_array[@ __SCRIBBLE.PAGES_ARRAY       ] = _element_pages_array;
-                                               
-_scribble_array[@ __SCRIBBLE.__SECTION4        ] = "-- Typewriter --";
-_scribble_array[@ __SCRIBBLE.TW_PAGE           ] =  0;
-_scribble_array[@ __SCRIBBLE.TW_FADE_IN        ] = -1;
-_scribble_array[@ __SCRIBBLE.TW_SPEED          ] =  0;
-_scribble_array[@ __SCRIBBLE.TW_POSITION       ] =  0;
-_scribble_array[@ __SCRIBBLE.TW_METHOD         ] = SCRIBBLE_TW_NONE;
-_scribble_array[@ __SCRIBBLE.TW_SMOOTHNESS     ] =  0;
-_scribble_array[@ __SCRIBBLE.TW_SOUND_ARRAY    ] = -1;
-_scribble_array[@ __SCRIBBLE.TW_SOUND_OVERLAP  ] =  0;
-_scribble_array[@ __SCRIBBLE.TW_SOUND_MIN_PITCH] =  1.0;
-_scribble_array[@ __SCRIBBLE.TW_SOUND_MAX_PITCH] =  1.0;
-        
+_scribble_array[@ __SCRIBBLE.__SECTION0    ] = "-- Parameters --";
+_scribble_array[@ __SCRIBBLE.VERSION       ] = __SCRIBBLE_VERSION;
+_scribble_array[@ __SCRIBBLE.STRING        ] = _draw_string;
+_scribble_array[@ __SCRIBBLE.CACHE_STRING  ] = _cache_string;
+_scribble_array[@ __SCRIBBLE.DEFAULT_FONT  ] = _def_font;
+_scribble_array[@ __SCRIBBLE.DEFAULT_COLOR ] = _def_colour;
+_scribble_array[@ __SCRIBBLE.DEFAULT_HALIGN] = _def_halign;
+_scribble_array[@ __SCRIBBLE.WIDTH_LIMIT   ] = _max_width;
+_scribble_array[@ __SCRIBBLE.HEIGHT_LIMIT  ] = _max_height;
+_scribble_array[@ __SCRIBBLE.LINE_HEIGHT   ] = _line_min_height;
+
+_scribble_array[@ __SCRIBBLE.__SECTION1    ] = "-- Statistics --";
+_scribble_array[@ __SCRIBBLE.WIDTH         ] = 0;
+_scribble_array[@ __SCRIBBLE.HEIGHT        ] = 0;
+_scribble_array[@ __SCRIBBLE.CHARACTERS    ] = 0;
+_scribble_array[@ __SCRIBBLE.LINES         ] = 0;
+_scribble_array[@ __SCRIBBLE.PAGES         ] = 0;
+
+_scribble_array[@ __SCRIBBLE.__SECTION2    ] = "-- State --";
+_scribble_array[@ __SCRIBBLE.FREED         ] = false;
+
+_scribble_array[@ __SCRIBBLE.__SECTION3    ] = "-- Pages --";
+_scribble_array[@ __SCRIBBLE.PAGES_ARRAY   ] = _element_pages_array;
+
+_scribble_array[@ __SCRIBBLE.__SECTION4    ] = "-- Occurances --";
+_scribble_array[@ __SCRIBBLE.OCCURANCE_MAP ] = _occurance_map;
+
+scribble_occurance(_scribble_array, SCRIBBLE_DEFAULT_OCCURANCE_ID);
+
 #endregion
         
         
@@ -172,9 +163,6 @@ _page_array[@ __SCRIBBLE_PAGE.LINES               ] = 0;
 _page_array[@ __SCRIBBLE_PAGE.CHARACTERS          ] = 0;
 _page_array[@ __SCRIBBLE_PAGE.LINES_ARRAY         ] = _page_lines_array;
 _page_array[@ __SCRIBBLE_PAGE.VERTEX_BUFFERS_ARRAY] = _page_vbuffs_array;
-        
-_page_array[@ __SCRIBBLE_PAGE.EVENT_PREVIOUS      ] = -1;
-_page_array[@ __SCRIBBLE_PAGE.EVENT_CHAR_PREVIOUS ] = -1;
 _page_array[@ __SCRIBBLE_PAGE.EVENT_CHAR_ARRAY    ] = _events_char_array; //Stores each event's triggering character
 _page_array[@ __SCRIBBLE_PAGE.EVENT_NAME_ARRAY    ] = _events_name_array; //Stores each event's name
 _page_array[@ __SCRIBBLE_PAGE.EVENT_DATA_ARRAY    ] = _events_data_array; //Stores each event's parameters
@@ -1060,9 +1048,6 @@ repeat(_buffer_size)
         _new_page_array[@ __SCRIBBLE_PAGE.CHARACTERS          ] = 0;
         _new_page_array[@ __SCRIBBLE_PAGE.LINES_ARRAY         ] = _new_page_lines_array;
         _new_page_array[@ __SCRIBBLE_PAGE.VERTEX_BUFFERS_ARRAY] = _new_page_vbuffs_array;
-                
-        _new_page_array[@ __SCRIBBLE_PAGE.EVENT_PREVIOUS      ] = -1;
-        _new_page_array[@ __SCRIBBLE_PAGE.EVENT_CHAR_PREVIOUS ] = -1;
         _new_page_array[@ __SCRIBBLE_PAGE.EVENT_CHAR_ARRAY    ] = _events_char_array; //Stores each event's triggering character
         _new_page_array[@ __SCRIBBLE_PAGE.EVENT_NAME_ARRAY    ] = _events_name_array; //Stores each event's name
         _new_page_array[@ __SCRIBBLE_PAGE.EVENT_DATA_ARRAY    ] = _events_data_array; //Stores each event's parameters

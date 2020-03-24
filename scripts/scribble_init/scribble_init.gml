@@ -90,11 +90,9 @@ enum __SCRIBBLE_PAGE
     LINES_ARRAY,          //2
     VERTEX_BUFFERS_ARRAY, //3
     
-    EVENT_PREVIOUS,       //4
-    EVENT_CHAR_PREVIOUS,  //5
-    EVENT_CHAR_ARRAY,     //6
-    EVENT_NAME_ARRAY,     //7
-    EVENT_DATA_ARRAY,     //8
+    EVENT_CHAR_ARRAY,     //4
+    EVENT_NAME_ARRAY,     //5
+    EVENT_DATA_ARRAY,     //6
     
     __SIZE
 }
@@ -177,27 +175,41 @@ enum __SCRIBBLE
     PAGES,                  //14
     
     __SECTION2,             //15
-    ANIMATION_TIME,         //16
-    TIME,                   //17
-    FREED,                  //18
-    SOUND_FINISH_TIME,      //19
+    LAST_DRAW_TIME,         //16
+    FREED,                  //17
     
-    __SECTION3,             //20
-    PAGES_ARRAY,            //21
+    __SECTION3,             //18
+    PAGES_ARRAY,            //19
     
-    __SECTION4,             //22
-    TW_PAGE,                //23
-    TW_FADE_IN,             //24
-    TW_SPEED,               //25
-    TW_POSITION,            //26
-    TW_METHOD,              //27
-    TW_SMOOTHNESS,          //28
-    TW_SOUND_ARRAY,         //29
-    TW_SOUND_OVERLAP,       //30
-	TW_SOUND_MIN_PITCH,     //31
-	TW_SOUND_MAX_PITCH,     //32
+    __SECTION4,             //20
+    OCCURANCE_MAP,
     
-    __SIZE                  //33
+    __SIZE                  //21
+}
+
+enum __SCRIBBLE_OCCURANCE
+{
+    LAST_DRAW_TIME,
+    ANIMATION_TIME,
+    
+    PAGE,   
+    
+    TW_FADE_IN,        
+    TW_SPEED,          
+    TW_POSITION,       
+    TW_METHOD,         
+    TW_SMOOTHNESS,
+    
+    EVENT_PREVIOUS,
+    EVENT_CHAR_PREVIOUS,
+    
+    TW_SOUND_ARRAY,    
+    TW_SOUND_OVERLAP,  
+	TW_SOUND_MIN_PITCH,
+	TW_SOUND_MAX_PITCH,
+    TW_SOUND_FINISH_TIME,
+    
+    __SIZE
 }
 
 #macro __SCRIBBLE_ON_DIRECTX           ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
@@ -206,7 +218,7 @@ enum __SCRIBBLE
 #macro __SCRIBBLE_ON_WEB               (os_browser != browser_not_a_browser)
 #macro __SCRIBBLE_GLYPH_BYTE_SIZE      (6*__SCRIBBLE_VERTEX.__SIZE)
 #macro __SCRIBBLE_EXPECTED_GLYPHS      100
-#macro __SCRIBBLE_EXPECTED_FRAME_TIME  (0.95*game_get_speed(gamespeed_microseconds)/1000) //Uses to prevent the typewriter from advancing if a draw call is made multiple times a frame to the same text element
+#macro __SCRIBBLE_EXPECTED_FRAME_TIME  (0.95*game_get_speed(gamespeed_microseconds)/1000) //Used to prevent the typewriter from advancing if a draw call is made multiple times a frame to the same text element
 
 //These are tied to values in shd_scribble
 //If you need to change these for some reason, you'll need to change shd_scribble too

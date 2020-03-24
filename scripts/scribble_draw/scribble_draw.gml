@@ -2,10 +2,11 @@
 /// 
 /// 
 /// Returns: A Scribble text element (which is really a complex array)
-/// @param x                   The x position in the room to draw at.
-/// @param y                   The y position in the room to draw at.
-/// @param string(orElement)   The text to be drawn. See below for formatting help.
-///                            Alternatively, you can pass a text element into this argument from a previous call to scribble_draw() e.g. for pre-caching.
+/// @param x              The x position in the room to draw at.
+/// @param y              The y position in the room to draw at.
+/// @param content        The text to be drawn. See below for formatting help.
+///                       Alternatively, you can pass a text element into this argument from a previous call to scribble_draw() e.g. for pre-caching.
+/// @param [occuranceID]
 /// 
 /// 
 /// Formatting commands:
@@ -33,9 +34,10 @@
 /// [wobble]  [/wobble]                 Set/unset text to wobble by rotating back and forth
 /// [pulse]   [/pulse]                  Set/unset text to shrink and grow rhythmically
 
-var _draw_x      = argument0;
-var _draw_y      = argument1;
-var _draw_string = argument2;
+var _draw_x      = argument[0];
+var _draw_y      = argument[1];
+var _draw_string = argument[2];
+var _occurance   = ((argument_count > 3) && (argument[3] != undefined))? argument[3] : SCRIBBLE_DEFAULT_OCCURANCE_ID;
 
 
 
@@ -62,8 +64,20 @@ else
 
 
 
+var _occurance_array = scribble_occurance(_scribble_array, _occurance);
 var _element_pages_array = _scribble_array[__SCRIBBLE.PAGES_ARRAY];
-var _page_array = _element_pages_array[_scribble_array[__SCRIBBLE.TW_PAGE]];
+var _page_array = _element_pages_array[_occurance_array[__SCRIBBLE_OCCURANCE.PAGE]];
+
+//Handle the animation timer
+var _increment_timers = ((current_time - _occurance_array[__SCRIBBLE_OCCURANCE.LAST_DRAW_TIME]) > __SCRIBBLE_EXPECTED_FRAME_TIME);
+var _animation_time   = _occurance_array[__SCRIBBLE_OCCURANCE.ANIMATION_TIME];
+_occurance_array[@ __SCRIBBLE_OCCURANCE.LAST_DRAW_TIME] = current_time;
+
+if (_increment_timers)
+{
+    _animation_time += SCRIBBLE_STEP_SIZE;
+    _occurance_array[@ __SCRIBBLE_OCCURANCE.ANIMATION_TIME] = _animation_time;
+}
 
 //Figure out the left/top offset
 switch(scribble_state_box_halign)
@@ -78,16 +92,6 @@ switch(scribble_state_box_valign)
     case fa_middle: var _top = -_scribble_array[__SCRIBBLE.HEIGHT] div 2; break;
     case fa_bottom: var _top = -_scribble_array[__SCRIBBLE.HEIGHT];       break;
     default:        var _top = 0;                                         break;
-}
-
-//Handle the animation timer
-var _increment_timers = ((current_time - _scribble_array[__SCRIBBLE.TIME]) > __SCRIBBLE_EXPECTED_FRAME_TIME);
-var _animation_time   = _scribble_array[__SCRIBBLE.ANIMATION_TIME];
-    
-if (_increment_timers)
-{
-    _animation_time += SCRIBBLE_STEP_SIZE;
-    _scribble_array[@ __SCRIBBLE.ANIMATION_TIME] = _animation_time;
 }
 
 //Build a matrix to transform the text...
@@ -114,7 +118,7 @@ var _page_vbuffs_array = _page_array[__SCRIBBLE_PAGE.VERTEX_BUFFERS_ARRAY];
 var _count = array_length_1d(_page_vbuffs_array);
 if (_count > 0)
 {
-    var _typewriter_method = _scribble_array[__SCRIBBLE.TW_METHOD];
+    var _typewriter_method = _occurance_array[__SCRIBBLE_OCCURANCE.TW_METHOD];
     if (_typewriter_method == SCRIBBLE_TW_NONE)
     {
         //If the text element's internal typewriter method hasn't been set then show all the text
@@ -126,10 +130,10 @@ if (_count > 0)
     }
     else
     {
-        var _typewriter_smoothness = _scribble_array[__SCRIBBLE.TW_SMOOTHNESS];
-        var _typewriter_position   = _scribble_array[__SCRIBBLE.TW_POSITION  ];
-        var _typewriter_fade_in    = _scribble_array[__SCRIBBLE.TW_FADE_IN   ];
-        var _typewriter_speed      = _scribble_array[__SCRIBBLE.TW_SPEED     ]*SCRIBBLE_STEP_SIZE;
+        var _typewriter_smoothness = _occurance_array[__SCRIBBLE_OCCURANCE.TW_SMOOTHNESS];
+        var _typewriter_position   = _occurance_array[__SCRIBBLE_OCCURANCE.TW_POSITION  ];
+        var _typewriter_fade_in    = _occurance_array[__SCRIBBLE_OCCURANCE.TW_FADE_IN   ];
+        var _typewriter_speed      = _occurance_array[__SCRIBBLE_OCCURANCE.TW_SPEED     ]*SCRIBBLE_STEP_SIZE;
         
         #region Scan for typewriter events
         
@@ -149,28 +153,30 @@ if (_count > 0)
                 break;
             }
             
-            var _scan_a = _page_array[__SCRIBBLE_PAGE.EVENT_CHAR_PREVIOUS];
+            var _scan_a = _occurance_array[__SCRIBBLE_OCCURANCE.EVENT_CHAR_PREVIOUS];
             if (_scan_b > _scan_a)
             {
                 //Play a sound effect as the text is revealed
-                var _sound_array = _scribble_array[__SCRIBBLE.TW_SOUND_ARRAY];
+                var _sound_array = _occurance_array[__SCRIBBLE_OCCURANCE.TW_SOUND_ARRAY];
                 if (is_array(_sound_array) && (array_length_1d(_sound_array) > 0))
                 {
-                    if (current_time >= _scribble_array[__SCRIBBLE.SOUND_FINISH_TIME]) 
+                    if (current_time >= _occurance_array[__SCRIBBLE_OCCURANCE.TW_SOUND_FINISH_TIME]) 
                     {
                         global.__scribble_lcg = (48271*global.__scribble_lcg) mod 2147483647; //Lehmer
                         var _sound = _sound_array[floor(array_length_1d(_sound_array) * global.__scribble_lcg / 2147483648)];
+                        
                         var _inst = audio_play_sound(_sound, 0, false);
-                        audio_sound_pitch(_inst, random_range(_scribble_array[__SCRIBBLE.TW_SOUND_MIN_PITCH], _scribble_array[__SCRIBBLE.TW_SOUND_MAX_PITCH]));
-                        _scribble_array[@ __SCRIBBLE.SOUND_FINISH_TIME] = current_time + 1000*audio_sound_length(_sound) - _scribble_array[__SCRIBBLE.TW_SOUND_OVERLAP];
+                        audio_sound_pitch(_inst, random_range(_occurance_array[__SCRIBBLE_OCCURANCE.TW_SOUND_MIN_PITCH], _occurance_array[__SCRIBBLE_OCCURANCE.TW_SOUND_MAX_PITCH]));
+                        
+                        _occurance_array[@ __SCRIBBLE_OCCURANCE.TW_SOUND_FINISH_TIME] = current_time + 1000*audio_sound_length(_sound) - _occurance_array[__SCRIBBLE_OCCURANCE.TW_SOUND_OVERLAP];
                     }
                 }
                     
-                var _event             = _page_array[__SCRIBBLE_PAGE.EVENT_PREVIOUS  ];
                 var _events_char_array = _page_array[__SCRIBBLE_PAGE.EVENT_CHAR_ARRAY];
                 var _events_name_array = _page_array[__SCRIBBLE_PAGE.EVENT_NAME_ARRAY];
                 var _events_data_array = _page_array[__SCRIBBLE_PAGE.EVENT_DATA_ARRAY];
                 var _event_count       = array_length_1d(_events_char_array);
+                var _event             = _occurance_array[__SCRIBBLE_OCCURANCE.EVENT_PREVIOUS];
                 
                 //Always start scanning at the next event
                 ++_event;
@@ -188,13 +194,13 @@ if (_count > 0)
                             var _script = global.__scribble_typewriter_events[? _events_name_array[_event]];
                             if (_script != undefined)
                             {
-                                _page_array[@ __SCRIBBLE_PAGE.EVENT_PREVIOUS] = _event;
-                                script_execute(_script, _scribble_array, _events_data_array[_event], _scan);
+                                _occurance_array[@ __SCRIBBLE_OCCURANCE.EVENT_PREVIOUS] = _event;
+                                script_execute(_script, _scribble_array, _occurance, _events_data_array[_event], _scan);
                             }
                                 
-                            if (_scribble_array[__SCRIBBLE.TW_SPEED] <= 0.0)
+                            if (_occurance_array[__SCRIBBLE_OCCURANCE.TW_SPEED] <= 0.0)
                             {
-                                _scribble_array[@ __SCRIBBLE.TW_SPEED] = 0;
+                                _occurance_array[@ __SCRIBBLE_OCCURANCE.TW_SPEED] = 0;
                                 _typewriter_speed = 0;
                                 _break = true;
                                 break;
@@ -209,12 +215,12 @@ if (_count > 0)
                     }
                         
                     if (_break && (_typewriter_method == SCRIBBLE_TW_PER_CHARACTER)) _typewriter_position = _scan;
-                        
-                    _page_array[@ __SCRIBBLE_PAGE.EVENT_CHAR_PREVIOUS] = _scan;
+                    
+                    _occurance_array[@ __SCRIBBLE_OCCURANCE.EVENT_CHAR_PREVIOUS] = _scan;
                 }
                 else
                 {
-                    _page_array[@ __SCRIBBLE_PAGE.EVENT_CHAR_PREVIOUS] = _scan_b;
+                    _occurance_array[@ __SCRIBBLE_OCCURANCE.EVENT_CHAR_PREVIOUS] = _scan_b;
                 }
             }
         }
@@ -243,7 +249,7 @@ if (_count > 0)
         if (_increment_timers)
         {
             //...then advance the typewriter position
-            _scribble_array[@ __SCRIBBLE.TW_POSITION] = clamp(_typewriter_position + _typewriter_speed, 0, _typewriter_count);
+            _occurance_array[@ __SCRIBBLE_OCCURANCE.TW_POSITION] = clamp(_typewriter_position + _typewriter_speed, 0, _typewriter_count);
         }
     }
     
@@ -286,7 +292,7 @@ matrix_set(matrix_world, _old_matrix);
 
 
 //Update when this text element was last drawn
-_scribble_array[@ __SCRIBBLE.TIME] = current_time;
+_scribble_array[@ __SCRIBBLE.LAST_DRAW_TIME] = current_time;
     
 
 
@@ -310,7 +316,7 @@ if (SCRIBBLE_CACHE_TIMEOUT > 0)
             if (__SCRIBBLE_DEBUG) show_debug_message("Scribble: \"" + _cache_string + "\" exists in cache but doesn't exist elsewhere");
             ds_list_delete(global.__scribble_global_cache_list, global.__scribble_cache_test_index);
         }
-        else if (_cache_array[__SCRIBBLE.TIME] + SCRIBBLE_CACHE_TIMEOUT < current_time)
+        else if (_cache_array[__SCRIBBLE.LAST_DRAW_TIME] + SCRIBBLE_CACHE_TIMEOUT < current_time)
         {
             if (__SCRIBBLE_DEBUG) show_debug_message("Scribble: Removing \"" + _cache_string + "\" from cache");
             
@@ -331,6 +337,7 @@ if (SCRIBBLE_CACHE_TIMEOUT > 0)
                 ++_p;
             }
             
+            ds_map_destroy(_scribble_array[@ __SCRIBBLE.OCCURANCE_MAP]);
             _cache_array[@ __SCRIBBLE.FREED] = true;
             
             //Remove reference from cache

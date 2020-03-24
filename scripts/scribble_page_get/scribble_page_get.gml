@@ -1,5 +1,8 @@
 /// @param element
-/// @param page
-/// @param [relative]
+/// @param [occuranceID]
 
-return argument0[__SCRIBBLE.TW_PAGE];
+var _element   = argument[0];
+var _occurance = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : SCRIBBLE_DEFAULT_OCCURANCE_ID;
+
+var _occurance_array = scribble_occurance(_element, _occurance);
+return _occurance_array[@ __SCRIBBLE_OCCURANCE.PAGE];
