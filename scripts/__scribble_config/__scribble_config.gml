@@ -23,7 +23,7 @@
 #macro SCRIBBLE_Z                     0     //The z-value for vertexes
 
 #macro SCRIBBLE_DEFAULT_CACHE_GROUP   "__default__" //The name of the default cache group. Real value and strings accepted
-#macro SCRIBBLE_DEFAULT_OCCURANCE_ID  "__default__"
+#macro SCRIBBLE_DEFAULT_OCCURANCE_ID  undefined
 #macro SCRIBBLE_CACHE_TIMEOUT         15000 //How long to wait (in milliseconds) before the cache automatically destroys a text element. Set to 0 (or less) to turn off automatic de-caching (you'll need to manually call scribble_flush() instead)
 
 #macro SCRIBBLE_COMMAND_TAG_OPEN      ord("[") //Character used to open a command tag. First 127 ASCII chars only

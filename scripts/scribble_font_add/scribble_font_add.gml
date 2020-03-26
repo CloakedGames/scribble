@@ -11,7 +11,7 @@
 
 if (!variable_global_exists("__scribble_default_font"))
 {
-    show_error("Scribble:\nscribble_add_font() should be called after scribble_init()\n ", true);
+    show_error("Scribble:\nscribble_font_add() should be called after scribble_init()\n ", true);
     return undefined;
 }
     
@@ -38,7 +38,7 @@ if (_texture == undefined)
     
     if (asset_get_type(_font) == asset_sprite)
     {
-        show_error("Scribble:\nAsset \"" + _font + "\" is a sprite\n \nPlease use scribble_add_spritefont() instead\n ", false);
+        show_error("Scribble:\nAsset \"" + _font + "\" is a sprite\n \nPlease use scribble_font_add_spritefont() instead\n ", false);
         return undefined;
     }
     
@@ -95,11 +95,9 @@ _data[@ __SCRIBBLE_FONT.GLYPHS_MAP  ] = undefined;
 _data[@ __SCRIBBLE_FONT.GLYPHS_ARRAY] = undefined;
 _data[@ __SCRIBBLE_FONT.GLYPH_MIN   ] = 32;
 _data[@ __SCRIBBLE_FONT.GLYPH_MAX   ] = 32;
-_data[@ __SCRIBBLE_FONT.TEXTURE     ] = undefined;
 _data[@ __SCRIBBLE_FONT.SPACE_WIDTH ] = undefined;
 _data[@ __SCRIBBLE_FONT.MAPSTRING   ] = undefined;
 _data[@ __SCRIBBLE_FONT.SEPARATION  ] = undefined;
-_data[@ __SCRIBBLE_FONT.TEXTURE     ] = _texture;
 global.__scribble_font_data[? _font ] = _data;
     
     
@@ -234,6 +232,7 @@ if (SCRIBBLE_SEQUENTIAL_GLYPH_TRY)
 	            _array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _yy_glyph_map[? "offset"];
 	            _array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = 0;
 	            _array[@ SCRIBBLE_GLYPH.SEPARATION] = _yy_glyph_map[? "shift"];
+                _array[@ SCRIBBLE_GLYPH.TEXTURE   ] = _texture;
 	            _array[@ SCRIBBLE_GLYPH.U0        ] = _u0;
 	            _array[@ SCRIBBLE_GLYPH.V0        ] = _v0;
 	            _array[@ SCRIBBLE_GLYPH.U1        ] = _u1;
@@ -279,6 +278,7 @@ if (_ds_map_fallback)
 	    _array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _yy_glyph_map[? "offset"];
 	    _array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = 0;
 	    _array[@ SCRIBBLE_GLYPH.SEPARATION] = _yy_glyph_map[? "shift"];
+        _array[@ SCRIBBLE_GLYPH.TEXTURE   ] = _texture;
 	    _array[@ SCRIBBLE_GLYPH.U0        ] = _u0;
 	    _array[@ SCRIBBLE_GLYPH.V0        ] = _v0;
 	    _array[@ SCRIBBLE_GLYPH.U1        ] = _u1;

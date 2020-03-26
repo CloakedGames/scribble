@@ -1,8 +1,8 @@
 {
-    "id": "cee2c7a7-26b4-4ce6-a5ad-a76b11c5de4a",
+    "id": "375e7330-6e30-4902-8a42-dbc8ad380c16",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "scribble_bake_font_effect",
+    "name": "scribble_font_add",
     "IsCompatibility": false,
     "IsDnD": false
 }

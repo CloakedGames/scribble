@@ -1,17 +1,17 @@
 scribble_init("fnt_test_0", "Fonts", true);
 
 //var _fnt_test_3_sprite = sprite_add("Fonts\\fnt_test_3.png", 0, false, false, 0, 0);
-//scribble_add_font("fnt_test_3", "fnt_test_3.yy", sprite_get_texture(_fnt_test_3_sprite, 0));
+//scribble_font_add("fnt_test_3", "fnt_test_3.yy", sprite_get_texture(_fnt_test_3_sprite, 0));
 
 var _mapstring = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-;:_+-*/\\'\"!?~^°<>|(){[]}%&=#@$ÄÖÜäöüß";
-scribble_add_spritefont("spr_sprite_font", _mapstring, 0, 11);
+scribble_font_add_spritefont("spr_sprite_font", _mapstring, 0, 11);
 
-scribble_bake_font_outline("spr_sprite_font", "fnt_outline", 1, 4, c_red, false);
+scribble_font_bake_outline("spr_sprite_font", "fnt_outline", 1, 4, c_red, false);
 
-scribble_add_color("c_coquelicot", $ff3800);
-scribble_add_color("c_smaragdine", $50c875);
-scribble_add_color("c_xanadu"    , $738678);
-scribble_add_color("c_amaranth"  , $e52b50);
+scribble_init_color("c_coquelicot", $ff3800);
+scribble_init_color("c_smaragdine", $50c875);
+scribble_init_color("c_xanadu"    , $738678);
+scribble_init_color("c_amaranth"  , $e52b50);
 
 scribble_tw_add_event("pause", example_pause);
 

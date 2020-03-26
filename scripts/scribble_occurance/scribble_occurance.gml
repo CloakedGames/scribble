@@ -6,8 +6,12 @@ var _element   = argument[0];
 var _occurance = argument[1];
 var _allow_new = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : true;
 
-var _occurance_map = _element[__SCRIBBLE.OCCURANCE_MAP];
+if (_occurance == SCRIBBLE_DEFAULT_OCCURANCE_ID)
+{
+    return _element[__SCRIBBLE.OCCURANCE_DEFAULT];
+}
 
+var _occurance_map = _element[__SCRIBBLE.OCCURANCE_MAP];
 var _occurance_array = _occurance_map[? _occurance];
 if (_occurance_array == undefined)
 {

@@ -35,7 +35,7 @@ if (_typewriter_method == SCRIBBLE_TW_NONE) return 1;
 var _typewriter_fade_in = _occurance_array[__SCRIBBLE_OCCURANCE.TW_FADE_IN];
 if (_occurance_array[__SCRIBBLE_OCCURANCE.TW_FADE_IN] < 0) return -2;
 
-var _element_pages_array = _occurance_array[__SCRIBBLE.PAGES_ARRAY];
+var _element_pages_array = _element[__SCRIBBLE.PAGES_ARRAY];
 var _page_array = _element_pages_array[_occurance_array[__SCRIBBLE_OCCURANCE.PAGE]];
 
 switch(_typewriter_method)

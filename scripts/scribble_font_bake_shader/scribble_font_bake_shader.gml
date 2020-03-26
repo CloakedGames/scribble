@@ -243,7 +243,7 @@ else
     
     
     
-    var _texture = _src_font_array[__SCRIBBLE_FONT.TEXTURE];
+    var _texture = _glyph_array[SCRIBBLE_GLYPH.TEXTURE]; //TODO
     var _surface_0 = surface_create(_texture_size, _texture_size);
     var _surface_1 = surface_create(_texture_size, _texture_size);
     
@@ -295,7 +295,6 @@ else
     _new_font_array[@ __SCRIBBLE_FONT.PATH        ] = undefined;
     _new_font_array[@ __SCRIBBLE_FONT.GLYPHS_MAP  ] = undefined;
     _new_font_array[@ __SCRIBBLE_FONT.GLYPHS_ARRAY] = undefined;
-    _new_font_array[@ __SCRIBBLE_FONT.TEXTURE     ] = _texture;
     global.__scribble_font_data[? _new_font_name] = _new_font_array;
     
     //Initialise our glyph data structure, copying what the source font used
@@ -329,38 +328,50 @@ else
         
         var _index = _glyph_position[4];
         var _src_glyph_array = _src_glyphs_array[_index];
-        var _ord = _src_glyph_array[SCRIBBLE_GLYPH.INDEX];
         
-        var _l = _glyph_position[0];
-        var _t = _glyph_position[1];
-        var _r = _l + _src_glyph_array[SCRIBBLE_GLYPH.WIDTH ] + _l_pad + _r_pad;
-        var _b = _t + _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT] + _t_pad + _b_pad;
-        
-        var _u0 = lerp(_sprite_u0, _sprite_u1, _l / _texture_size);
-        var _v0 = lerp(_sprite_v0, _sprite_v1, _t / _texture_size);
-        var _u1 = lerp(_sprite_u0, _sprite_u1, _r / _texture_size);
-        var _v1 = lerp(_sprite_v0, _sprite_v1, _b / _texture_size);
-        
-    	var _array = array_create(SCRIBBLE_GLYPH.__SIZE, 0);
-    	_array[@ SCRIBBLE_GLYPH.CHARACTER ] = _src_glyph_array[SCRIBBLE_GLYPH.CHARACTER ];
-    	_array[@ SCRIBBLE_GLYPH.INDEX     ] = _ord;
-    	_array[@ SCRIBBLE_GLYPH.WIDTH     ] = _src_glyph_array[SCRIBBLE_GLYPH.WIDTH     ] + _l_pad + _r_pad;
-    	_array[@ SCRIBBLE_GLYPH.HEIGHT    ] = _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT    ] + _t_pad + _b_pad;
-    	_array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.X_OFFSET  ] - _l_pad;
-    	_array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.Y_OFFSET  ] - _t_pad;
-    	_array[@ SCRIBBLE_GLYPH.SEPARATION] = _src_glyph_array[SCRIBBLE_GLYPH.SEPARATION] + _separation;
-    	_array[@ SCRIBBLE_GLYPH.U0        ] = _u0;
-    	_array[@ SCRIBBLE_GLYPH.V0        ] = _v0;
-    	_array[@ SCRIBBLE_GLYPH.U1        ] = _u1;
-    	_array[@ SCRIBBLE_GLYPH.V1        ] = _v1;
-        
-        if (_uses_glyph_map)
+        if (!is_array(_src_glyph_array))
         {
-            _new_glyph_map[? _ord] = _array;
+            if (_uses_glyph_map)
+            {
+                _new_glyph_array[@ _ord - _glyph_min] = undefined;
+            }
         }
         else
         {
-    	    _new_glyph_array[@ _ord - _glyph_min] = _array;
+            var _ord = _src_glyph_array[SCRIBBLE_GLYPH.INDEX];
+            
+            var _l = _glyph_position[0];
+            var _t = _glyph_position[1];
+            var _r = _l + _src_glyph_array[SCRIBBLE_GLYPH.WIDTH ] + _l_pad + _r_pad;
+            var _b = _t + _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT] + _t_pad + _b_pad;
+            
+            var _u0 = lerp(_sprite_u0, _sprite_u1, _l / _texture_size);
+            var _v0 = lerp(_sprite_v0, _sprite_v1, _t / _texture_size);
+            var _u1 = lerp(_sprite_u0, _sprite_u1, _r / _texture_size);
+            var _v1 = lerp(_sprite_v0, _sprite_v1, _b / _texture_size);
+            
+        	var _array = array_create(SCRIBBLE_GLYPH.__SIZE, 0);
+        	_array[@ SCRIBBLE_GLYPH.CHARACTER ] = _src_glyph_array[SCRIBBLE_GLYPH.CHARACTER ];
+        	_array[@ SCRIBBLE_GLYPH.INDEX     ] = _ord;
+        	_array[@ SCRIBBLE_GLYPH.WIDTH     ] = _src_glyph_array[SCRIBBLE_GLYPH.WIDTH     ] + _l_pad + _r_pad;
+        	_array[@ SCRIBBLE_GLYPH.HEIGHT    ] = _src_glyph_array[SCRIBBLE_GLYPH.HEIGHT    ] + _t_pad + _b_pad;
+        	_array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.X_OFFSET  ] - _l_pad;
+        	_array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = _src_glyph_array[SCRIBBLE_GLYPH.Y_OFFSET  ] - _t_pad;
+        	_array[@ SCRIBBLE_GLYPH.SEPARATION] = _src_glyph_array[SCRIBBLE_GLYPH.SEPARATION] + _separation;
+        	_array[@ SCRIBBLE_GLYPH.TEXTURE   ] = _texture;
+        	_array[@ SCRIBBLE_GLYPH.U0        ] = _u0;
+        	_array[@ SCRIBBLE_GLYPH.V0        ] = _v0;
+        	_array[@ SCRIBBLE_GLYPH.U1        ] = _u1;
+        	_array[@ SCRIBBLE_GLYPH.V1        ] = _v1;
+            
+            if (_uses_glyph_map)
+            {
+                _new_glyph_map[? _ord] = _array;
+            }
+            else
+            {
+        	    _new_glyph_array[@ _ord - _glyph_min] = _array;
+            }
         }
         
         ++_i;

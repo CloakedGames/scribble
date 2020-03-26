@@ -37,7 +37,7 @@
 var _draw_x      = argument[0];
 var _draw_y      = argument[1];
 var _draw_string = argument[2];
-var _occurance   = ((argument_count > 3) && (argument[3] != undefined))? argument[3] : SCRIBBLE_DEFAULT_OCCURANCE_ID;
+var _occurance   = (argument_count > 3)? argument[3] : undefined;
 
 
 

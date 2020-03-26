@@ -22,6 +22,6 @@ shader_set_uniform_f(shader_get_uniform(shader_current(), "u_vOutlineColor"), co
 shader_reset();
 
 //Run the baking operation
-scribble_bake_font_effect(_source_font_name, _new_font_name, shd_scribble_bake_outline,
+scribble_font_bake_shader(_source_font_name, _new_font_name, shd_scribble_bake_outline,
                           2, _outline_size, _outline_size, _outline_size, _outline_size,
                           _outline_size, _smooth);

@@ -1,12 +1,14 @@
 /// An example event called by Scribble's typewriter feature
 /// 
 /// @param   textElement
+/// @param   occuranceID
 /// @param   eventData{array}
 /// @param   characterIndex
 
 var _text_element = argument0;
-var _event_data   = argument1;
-var _char_index   = argument2;
+var _occurance_id = argument1;
+var _event_data   = argument2;
+var _char_index   = argument3;
 
 var _sound = asset_get_index(_event_data[0]);
 if (audio_exists(_sound))

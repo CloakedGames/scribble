@@ -5,4 +5,4 @@ scribble_init("fnt_test_0", "Fonts", true);
 //Scribble duplicates GameMaker's native spritefont rendering
 //...but GM's spritefont renderer handles spaces weirdly so it's best to manually specify a width for Scribble
 var _mapstring = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.-;:_+-*/\\'\"!?~^°<>|(){[]}%&=#@$ÄÖÜäöüß";
-scribble_add_spritefont("spr_sprite_font", _mapstring, 0, 3);
+scribble_font_add_spritefont("spr_sprite_font", _mapstring, 0, 3);

@@ -3,14 +3,14 @@
 /// @param fontName       String name of the spritefont to add.
 /// @param mapString      String from which sprite sub-image order is taken. (Same behaviour as GameMaker's native font_add_sprite_ext())
 /// @param separation     The space to leave between each letter. (Same behaviour as GameMaker's native font_add_sprite_ext())
-/// @param [spaceWidth]   Pixel width of the space character. Defaults to emulating GameMaker's behaviour.
+/// @param [spaceWidth]   Pixel width of the space character. Defaults to emulating GameMaker's behaviour
 ///
 /// Scribble's spritefonts emulate GameMaker's native behaviour. Spritefonts otherwise behave indentically to normal fonts within Scribble.
 /// All Scribble spritefonts are proportional as per GameMaker's font_add_sprite_ext() function.
 
 if (!variable_global_exists("__scribble_default_font"))
 {
-    show_error("Scribble:\nscribble_add_spritefont() should be called after scribble_init()\n ", true);
+    show_error("Scribble:\nscribble_font_add_spritefont() should be called after scribble_init()\n ", true);
     exit;
 }
 
@@ -40,8 +40,8 @@ if (!is_string(_font))
 
 if (asset_get_type(_font) == asset_font)
 {
-    show_error("Scribble:\nTo add a normal font, please use scribble_add_font()\n ", false);
-    return scribble_add_font(_font);
+    show_error("Scribble:\nTo add a normal font, please use scribble_font_add()\n ", false);
+    return scribble_font_add(_font);
 }
 
 if (asset_get_type(_font) != asset_sprite)
@@ -54,9 +54,11 @@ if (asset_get_type(_font) != asset_sprite)
 
 show_debug_message("Scribble: Reminder - Set your spritefonts' collision type to \"Precise Per Frame (Slow)\". This helps Scribble determine how big each character is");
 if (SCRIBBLE_VERBOSE) show_debug_message("Scribble: Processing spritefont \"" + _font + "\"");
-        
-//Strip out a map of of glyphs
+
 var _sprite = asset_get_index(_font);
+var _texture = sprite_get_texture(_sprite, 0); //TODO - Not all glyphs in a spritefont are necessarily on the same texture page. Waiting on YYG to provide a function to help with handling this
+
+//Strip out a map of of glyphs
 var _sprite_length = sprite_get_number(_sprite);
 var _length = string_length(_mapstring);
 if (SCRIBBLE_VERBOSE) show_debug_message("Scribble:   \"" + _font + "\" has " + string(_length) + " characters");
@@ -82,7 +84,6 @@ _data[@ __SCRIBBLE_FONT.GLYPHS_MAP  ] = undefined;
 _data[@ __SCRIBBLE_FONT.GLYPHS_ARRAY] = undefined;
 _data[@ __SCRIBBLE_FONT.GLYPH_MIN   ] = 32;
 _data[@ __SCRIBBLE_FONT.GLYPH_MAX   ] = 32;
-_data[@ __SCRIBBLE_FONT.TEXTURE     ] = sprite_get_texture(_sprite, 0);
 _data[@ __SCRIBBLE_FONT.SPACE_WIDTH ] = _space_width;
 _data[@ __SCRIBBLE_FONT.MAPSTRING   ] = _mapstring;
 _data[@ __SCRIBBLE_FONT.SEPARATION  ] = _separation;
@@ -149,6 +150,7 @@ for(var _i = 0; _i < _length; _i++)
         _array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = 0;
         _array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = 0;
         _array[@ SCRIBBLE_GLYPH.SEPARATION] = 1 + _shift_constant;
+        _array[@ SCRIBBLE_GLYPH.TEXTURE   ] = _texture;
         _array[@ SCRIBBLE_GLYPH.U0        ] = 0;
         _array[@ SCRIBBLE_GLYPH.V0        ] = 0;
         _array[@ SCRIBBLE_GLYPH.U1        ] = 0;
@@ -164,6 +166,7 @@ for(var _i = 0; _i < _length; _i++)
         _array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = _left - bbox_left;
         _array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = _top-1;
         _array[@ SCRIBBLE_GLYPH.SEPARATION] = _glyph_width + _shift_constant;
+        _array[@ SCRIBBLE_GLYPH.TEXTURE   ] = _texture;
         _array[@ SCRIBBLE_GLYPH.U0        ] = _uvs[0];
         _array[@ SCRIBBLE_GLYPH.V0        ] = _uvs[1];
         _array[@ SCRIBBLE_GLYPH.U1        ] = _uvs[2];
@@ -187,6 +190,7 @@ if (!ds_map_exists(_font_glyphs_map, 32))
     _array[@ SCRIBBLE_GLYPH.X_OFFSET  ] = 0;
     _array[@ SCRIBBLE_GLYPH.Y_OFFSET  ] = 0;
     _array[@ SCRIBBLE_GLYPH.SEPARATION] = _glyph_width + _shift_constant;
+    _array[@ SCRIBBLE_GLYPH.TEXTURE   ] = _texture;
     _array[@ SCRIBBLE_GLYPH.U0        ] = 0;
     _array[@ SCRIBBLE_GLYPH.V0        ] = 0;
     _array[@ SCRIBBLE_GLYPH.U1        ] = 0;

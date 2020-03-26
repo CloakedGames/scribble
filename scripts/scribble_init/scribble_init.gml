@@ -54,11 +54,12 @@ enum SCRIBBLE_GLYPH
     X_OFFSET,   // 4
     Y_OFFSET,   // 5
     SEPARATION, // 6
-    U0,         // 7
-    V0,         // 8
-    U1,         // 9
-    V1,         //10
-    __SIZE      //11
+    TEXTURE,    // 7
+    U0,         // 8
+    V0,         // 9
+    U1,         //10
+    V1,         //11
+    __SIZE      //12
 }
 
 enum __SCRIBBLE_FONT
@@ -70,11 +71,10 @@ enum __SCRIBBLE_FONT
     GLYPHS_ARRAY, // 4
     GLYPH_MIN,    // 5
     GLYPH_MAX,    // 6
-    TEXTURE,      // 7
-    SPACE_WIDTH,  // 8
-    MAPSTRING,    // 9
-    SEPARATION,   //10
-    __SIZE        //11
+    SPACE_WIDTH,  // 7
+    MAPSTRING,    // 8
+    SEPARATION,   // 9
+    __SIZE        //10
 }
 
 enum __SCRIBBLE_FONT_TYPE
@@ -182,9 +182,10 @@ enum __SCRIBBLE
     PAGES_ARRAY,            //19
     
     __SECTION4,             //20
-    OCCURANCE_MAP,
+    OCCURANCE_DEFAULT,      //21
+    OCCURANCE_MAP,          //22
     
-    __SIZE                  //21
+    __SIZE                  //23
 }
 
 enum __SCRIBBLE_OCCURANCE
@@ -222,12 +223,12 @@ enum __SCRIBBLE_OCCURANCE
 
 //These are tied to values in shd_scribble
 //If you need to change these for some reason, you'll need to change shd_scribble too
-#macro SCRIBBLE_TW_NONE             0  //No fade
-#macro SCRIBBLE_TW_PER_CHARACTER    1  //Fade each character individually
-#macro SCRIBBLE_TW_PER_LINE         2  //Fade each line of text as a group
-#macro SCRIBBLE_FADE_NONE           SCRIBBLE_TW_NONE
-#macro SCRIBBLE_FADE_PER_CHARACTER  SCRIBBLE_TW_PER_CHARACTER
-#macro SCRIBBLE_FADE_PER_LINE       SCRIBBLE_TW_PER_LINE
+#macro SCRIBBLE_TW_NONE               0  //No fade
+#macro SCRIBBLE_TW_PER_CHARACTER      1  //Fade each character individually
+#macro SCRIBBLE_TW_PER_LINE           2  //Fade each line of text as a group
+#macro SCRIBBLE_FADE_NONE             SCRIBBLE_TW_NONE
+#macro SCRIBBLE_FADE_PER_CHARACTER    SCRIBBLE_TW_PER_CHARACTER
+#macro SCRIBBLE_FADE_PER_LINE         SCRIBBLE_TW_PER_LINE
 
 #endregion
 
@@ -430,7 +431,7 @@ if (_autoscan)
     var _i = 0;
     repeat(999)
     {
-        if (font_exists(_i)) scribble_add_font(font_get_name(_i));
+        if (font_exists(_i)) scribble_font_add(font_get_name(_i));
         ++_i;
     }
     
